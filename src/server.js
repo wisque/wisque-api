@@ -1,13 +1,17 @@
-import koa from 'koa';
+import Koa from 'koa';
+import configure from './config/middleware';
+import configuration from './config/env';
 
-const app = koa();
+const app = new Koa();
 
-app.listen(4002, () => {
+configure(app);
+
+app.listen(configuration.port, () => {
     console.log(`
     ==============================
     WISQUE APP API   *************
-    NOW RUNNING ON PORT 4002 *****
-    ENVIRONMENT IS DEVELOPMENT ***
+    NOW RUNNING ON PORT ${configuration.port} *****
+    ENVIRONMENT IS ${configuration.env.toUpperCase()}
     ==============================
     `);
 });
