@@ -15,5 +15,6 @@ module.exports = {
         'indent': ['error', 4, { 'SwitchCase': 1 }],
         'max-len': ['error', 120],
         'no-restricted-syntax': ['error', 'TryStatement', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
+        'no-param-reassign': 'off'
     }
 };

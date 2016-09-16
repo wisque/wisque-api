@@ -19,7 +19,7 @@ gulp.task('build', function() {
     .pipe(babel())
     .pipe(cache.cache())
     .pipe(sourcemaps.write("."))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist/src'));
 });
 
 gulp.task('run', ['build'], function() {
@@ -27,7 +27,10 @@ gulp.task('run', ['build'], function() {
         script: './dist/server.js',
         ext: 'js',
         tasks: ['build'],
-        watch: path.src
+        watch: path.src,
+        env: {
+            NODE_PATH: './dist'
+        }
     });
 });
 
