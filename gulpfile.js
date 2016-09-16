@@ -24,7 +24,7 @@ gulp.task('build', function() {
 
 gulp.task('run', ['build'], function() {
     return nodemon({
-        script: './dist/server.js',
+        script: './dist/src/server.js',
         ext: 'js',
         tasks: ['build'],
         watch: path.src,
