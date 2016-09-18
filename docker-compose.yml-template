@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db-data: # dummy container to avoid loose of Mongo DB data on container restart
+    container_name: db-data
+    image: mongo
+    volumes:
+      - /data/mongo:/data/db/
+    entrypoint:
+      /bin/true # prevent running MongoDB instance within this container
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes_from:
+      - db-data
