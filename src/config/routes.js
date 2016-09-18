@@ -1,6 +1,6 @@
 import Router from 'koa-router';
 import resources from 'src/resources';
-import versionify from 'src/utils/helpers';
+import {versionify} from 'src/utils/helpers';
 
 const router = new Router();
 
