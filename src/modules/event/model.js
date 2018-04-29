@@ -1,6 +1,6 @@
 import mongo, {Schema} from 'mongoose';
 
-const party = {
+const event = {
     title: {
         type: String,
         required: [true, 'Party should have title']
@@ -19,4 +19,4 @@ const party = {
     }
 };
 
-export default mongo.model('Party', new Schema(party));
+export default mongo.model('Event', new Schema(event));

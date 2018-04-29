@@ -1,9 +1,10 @@
 import Router from 'koa-router';
-import resources from 'src/resources';
 import {versionify} from 'src/utils/helpers';
+
+import event from 'src/modules/event/router';
 
 const router = new Router();
 
-router.use(versionify('/parties'), resources.parties);
+router.use(versionify('/events'), event);
 
 export default router.routes();

@@ -1,8 +1,8 @@
 import Router from 'koa-router';
 import {buildParamMiddleware} from 'src/utils/helpers';
-import * as controller from './parties.controller';
-import * as service from './parties.service';
-import validator from './parties.validator';
+import * as controller from './controller';
+import * as repository from './repository';
+import validator from './validator';
 
 const router = new Router();
 
@@ -12,6 +12,6 @@ router.put('/:id', controller.update);
 router.delete('/:id', controller.remove);
 router.get('/:id', controller.getById);
 
-router.param('id', buildParamMiddleware(service.getById, 'party'));
+router.param('id', buildParamMiddleware(repository.getById, 'event'));
 
 export default router.routes();

@@ -1,11 +1,11 @@
-import party from './parties.model';
+import party from './model';
 
 export async function getAll() {
     return await party.find();
 }
 
-export async function create() {
-    return await party.create();
+export async function create(event) {
+    return await party.create(event);
 }
 
 export async function update() {

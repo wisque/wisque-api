@@ -10,11 +10,11 @@ var path = {src: 'src/**/*'};
 
 gulp.task('build', function() {
     return gulp.src([path.src])
-    .pipe(eslint({
-        fix: true
-    }))
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError())
+    // .pipe(eslint({
+    //     fix: true
+    // }))
+    // .pipe(eslint.format())
+    // .pipe(eslint.failAfterError())
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(cache.cache())

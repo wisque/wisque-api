@@ -1,10 +1,10 @@
-import Party from './parties.model';
+import Event from './model';
 
 export default async function(ctx, next) {
-    const party = new Party(ctx.body);
+    const event = new Event(ctx.request.body); 
 
     try {
-        await party.validate();
+        await event.validate();
         
         /** All other validation should be here **/
 
