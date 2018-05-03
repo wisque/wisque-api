@@ -1,8 +1,8 @@
-import Router from 'koa-router';
-import {buildParamMiddleware} from 'src/utils/helpers';
-import * as controller from './controller';
-import * as repository from './repository';
-import validator from './validator';
+const Router = require('koa-router');
+const { buildParamMiddleware } = require('src/utils/helpers');
+const controller = require('./controller');
+const repository = require('./repository');
+const validator = require('./validator');
 
 const router = new Router();
 
@@ -14,4 +14,4 @@ router.get('/:id', controller.getById);
 
 router.param('id', buildParamMiddleware(repository.getById, 'event'));
 
-export default router.routes();
+module.exports = router.routes();

@@ -1,12 +1,12 @@
-import morgan from 'koa-morgan';
-import routes from './routes';
-import bodyParser from 'koa-bodyparser'; 
-import passport from 'src/lib/passport';
+const morgan = require('koa-morgan');
+const bodyParser = require('koa-bodyparser');
+const passport = require('src/lib/passport');
+const routes = require('./routes');
 
-export default function(app) {
+module.exports = function (app) {
     app.use(passport.initialize());
     app.use(bodyParser());
     app.use(routes);
     app.use(morgan('dev'));
-}
+};
 

@@ -1,6 +1,5 @@
 module.exports = {
     extends: "airbnb",
-    parser: 'babel-eslint',
     env: {
         node: true
     },
@@ -17,5 +16,7 @@ module.exports = {
         'no-restricted-syntax': ['error', 'ForInStatement', 'LabeledStatement', 'WithStatement'],
         'no-param-reassign': 'off',
         'generator-star-spacing': 'off',
+        'import/prefer-default-export': 'off',
+        'no-use-before-define': 'off'
     }
 };

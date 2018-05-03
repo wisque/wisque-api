@@ -1,3 +1,3 @@
-export default {
-    port: 8000
+module.exports = {
+    port: 8000,
 };

@@ -1,21 +1,29 @@
-import party from './model';
+const Event = require('./model');
 
-export async function getAll() {
-    return await party.find();
+module.exports = {
+    getAll,
+    create,
+    update,
+    remove,
+    getById,
+};
+
+async function getAll() {
+    return Event.find();
 }
 
-export async function create(event) {
-    return await party.create(event);
+async function create(event) {
+    return Event.create(event);
 }
 
-export async function update() {
-    return await party.update();
+async function update() {
+    return Event.update();
 }
 
-export async function remove(id) {
-    return await party.remove({id: id});
+async function remove(id) {
+    return Event.remove({ id });
 }
 
-export function getById(id) {
-    return party.findOne({id: id});
+function getById(id) {
+    return Event.findOne({ id });
 }

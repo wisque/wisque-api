@@ -15,4 +15,4 @@ EXPOSE 5858
 
 WORKDIR /home/$VIRTUSER
 
-ENTRYPOINT cd /usr/src/app && npm install && npm start
+ENTRYPOINT cd /usr/src/app && npm install && npm start:dev

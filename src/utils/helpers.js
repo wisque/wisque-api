@@ -1,18 +1,23 @@
-import config from 'src/config/env';
+const config = require('src/config/env');
 
-export function versionify(url) {
+module.exports = {
+    versionify,
+    buildParamMiddleware,
+};
+
+function versionify(url) {
     return `/${config.version}${url}`;
 }
 
-export function buildParamMiddleware(retriever, dest) {
+function buildParamMiddleware(retriever, dest) {
     return async function param(id, ctx, next) {
         const entity = await retriever(id);
-        
+
         if (entity) {
             ctx.state[dest] = entity;
-            await next()
+            await next();
         } else {
             ctx.throw(404, 'Not found');
         }
-    }
+    };
 }

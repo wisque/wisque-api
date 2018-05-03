@@ -1,9 +1,9 @@
-import passport from 'koa-passport';
-import FacebookStrategy from 'passport-facebook';
-import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
-import { verifyFacebook, verifyJwt } from 'src/modules/account/service';
+const passport = require('koa-passport');
+const FacebookStrategy = require('passport-facebook');
+const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
+const { verifyFacebook, verifyJwt } = require('src/modules/account/service');
 
-import config from 'src/config/env';
+const config = require('src/config/env');
 
 const jwtStrategyOptions = {
     jwtFromRequest: ExtractJwt.fromHeader(config.jwt.header),
@@ -15,10 +15,10 @@ const jwtStrategyOptions = {
 const facebookStrategyOptions = {
     clientID: config.facebook.clientID,
     clientSecret: config.facebook.clientSecret,
-    callbackURL: `${config.buildApiUrl()}${config.facebook.callbackPath}`
+    callbackURL: `${config.buildApiUrl()}${config.facebook.callbackPath}`,
 };
 
 passport.use('facebook', new FacebookStrategy(facebookStrategyOptions, verifyFacebook));
 passport.use('jwt', new JwtStrategy(jwtStrategyOptions, verifyJwt));
 
-export default passport;
+module.exports = passport;

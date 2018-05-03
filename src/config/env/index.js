@@ -1,4 +1,6 @@
 const environment = process.env.NODE_ENV || 'development';
+
+// eslint-disable-next-line import/no-dynamic-require
 const configuration = require(`./${environment}`).default;
 
 const defaults = {
@@ -12,7 +14,7 @@ const defaults = {
     version: 'v1',
     database: {
         url: 'mongodb://mongodb/wisque-development',
-        name: 'wisque-development'
+        name: 'wisque-development',
     },
     jwt: {
         secret: 'cJy5gn9g3v9tquBL4rrEdvwC7xGTsygxDGCfB4SU',
@@ -25,9 +27,9 @@ const defaults = {
     facebook: {
         clientID: '154731858660245',
         clientSecret: 'f9916fa2be5b3ddc3eb71423162afeda',
-        callbackPath: "/v1/accounts/facebook/callback",
-        
-    }
+        callbackPath: '/v1/accounts/facebook/callback',
+
+    },
 };
 
-export default {...defaults, ...configuration};
+module.exports = { ...defaults, ...configuration };

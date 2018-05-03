@@ -1,25 +1,34 @@
-import account from './model';
+const Account = require('./model');
 
-export async function getAll() {
-    return await account.find();
+module.exports = {
+    getAll,
+    create,
+    update,
+    remove,
+    getById,
+    findOne,
+};
+
+function getAll() {
+    return Account.find();
 }
 
-export async function create(event) {
-    return await account.create(event);
+function create(account) {
+    return Account.create(account);
 }
 
-export async function update() {
-    return await account.update();
+function update() {
+    return Account.update();
 }
 
-export async function remove(id) {
-    return await account.remove({id: id});
+function remove(id) {
+    return Account.remove({ id });
 }
 
-export function getById(id) {
-    return account.findOne({id: id});
+function getById(id) {
+    return Account.findOne({ id });
 }
 
-export function findOne(query) {
-    return account.findOne(query);
+function findOne(query) {
+    return Account.findOne(query);
 }

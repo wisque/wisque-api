@@ -1,7 +1,9 @@
-import Koa from 'koa';
-import configure from './config/middleware';
-import configuration from './config/env';
-import Mongo from './db';
+require('./config/path').init();
+
+const Koa = require('koa');
+const configure = require('src/config/middleware');
+const configuration = require('src/config/env');
+const Mongo = require('src/db');
 
 const app = new Koa();
 
@@ -19,12 +21,12 @@ app.listen(configuration.port, () => {
     `);
 });
 
-/** Handle all unhandled promise rejections and exceptions **/
-process.on('uncaughtException', error => {
+/** Handle all unhandled promise rejections and exceptions * */
+process.on('uncaughtException', (error) => {
     console.error(`Uncaught exception: "${error}". ${error.stack || 'No stack trace'}`);
 });
 
-process.on('unhandledRejection', error => {
+process.on('unhandledRejection', (error) => {
     console.error(`Unhandled promise rejection: "${error}". ${error.stack || 'No stack trace'}`);
 });
 
