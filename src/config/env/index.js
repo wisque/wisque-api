@@ -11,7 +11,7 @@ const defaults = {
     },
     version: 'v1',
     database: {
-        url: 'mongodb://localhost/wisque-development',
+        url: 'mongodb://mongodb/wisque-development',
         name: 'wisque-development'
     },
     jwt: {

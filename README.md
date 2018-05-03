@@ -1,11 +1,12 @@
-# wisque-api
-
-## Project setup
-
-`$ npm install`
-
-`$ gulp build`
+# Wisque API
 
 ## Requirements
+1. Docker Engine  1.10.0+
+2. Docker Compose  1.6.0+
+3. Node.js  8.0.0+
+4. npm  3.8.6+
 
- `node.js, npm`
+## Setup Instructions
+1. [Docker](https://docs.docker.com/engine/installation) and [Docker Compose](https://docs.docker.com/compose/install).
+
+2. Run all at once: `docker-compose up`.

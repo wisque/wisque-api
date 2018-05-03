@@ -10,7 +10,7 @@ export async function verifyFacebook(accessToken, refreshToken, profile, cb) {
         account = await accountRepository.create({ social_network_id: profile.id })
     }
 
-    cb(null, account);
+    cb(null, account); 
 }
 
 export async function verifyJwt(payload, done) {

@@ -1,0 +1,18 @@
+FROM node:8
+
+# container username
+ENV VIRTUSER wisque
+
+ARG APP_DIR=/usr/src/app
+
+# Set enviroment variables
+ENV NODE_ENV=development
+ENV NODE_PATH=$APP_DIR
+ENV PORT=4000
+
+EXPOSE $PORT
+EXPOSE 5858
+
+WORKDIR /home/$VIRTUSER
+
+ENTRYPOINT cd /usr/src/app && npm install && npm start

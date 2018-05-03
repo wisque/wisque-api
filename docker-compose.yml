@@ -8,10 +8,25 @@ services:
     entrypoint:
       /bin/true # prevent running MongoDB instance within this container
 
-  mongo:
+  mongodb:
     image: mongo
     ports:
       - "27017:27017"
     restart: always
     volumes_from:
       - db-data
+
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile.dev
+    links:
+      - mongodb:mongodb
+    ports:
+      - 4000:4000
+    restart: always
+    depends_on:
+      - mongodb
+    volumes:
+      - ./:/usr/src/app
+    user: root
