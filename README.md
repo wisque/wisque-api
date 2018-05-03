@@ -3,8 +3,6 @@
 ## Requirements
 1. Docker Engine  1.10.0+
 2. Docker Compose  1.6.0+
-3. Node.js  8.0.0+
-4. npm  3.8.6+
 
 ## Setup Instructions
 1. [Docker](https://docs.docker.com/engine/installation) and [Docker Compose](https://docs.docker.com/compose/install).
