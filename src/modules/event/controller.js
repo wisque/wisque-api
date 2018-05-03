@@ -17,7 +17,5 @@ export async function remove(ctx) {
 }
 
 export function getById(ctx) {
-    ctx.body = ctx.state.party;
+    ctx.body = ctx.state.event;
 }
-
-
