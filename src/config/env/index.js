@@ -12,9 +12,16 @@ const defaults = {
         return `${this.protocol}://${this.host}:${this.port}`;
     },
     version: 'v1',
-    database: {
-        url: 'mongodb://mongodb/wisque-development',
-        name: 'wisque-development',
+    logging: true,
+    mongodb: {
+        host: 'mongodb',
+        database: 'wisque-development',
+        port: 27017,
+        buildConnectionUrl() {
+            const authStr = this.auth ? `${this.user}:${this.password}@` : '';
+
+            return `mongodb://${authStr}${this.host}:${this.port}/${this.database}`;
+        },
     },
     jwt: {
         secret: 'cJy5gn9g3v9tquBL4rrEdvwC7xGTsygxDGCfB4SU',

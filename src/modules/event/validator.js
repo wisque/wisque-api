@@ -1,5 +1,5 @@
 const Event = require('./model');
- 
+
 module.exports = async function (ctx, next) {
     const event = new Event(ctx.request.body);
 
