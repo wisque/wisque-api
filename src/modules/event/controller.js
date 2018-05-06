@@ -13,7 +13,9 @@ async function findAll(ctx) {
 }
 
 async function create(ctx) {
-    ctx.body = await eventRepository.create(ctx.request.body);
+    const event = ctx.request.body;
+    event.created_by_account_id = ctx.state.user.id;
+    ctx.body = await eventRepository.create(event);
 }
 
 async function update(ctx) {
