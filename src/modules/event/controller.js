@@ -21,7 +21,7 @@ async function update(ctx) {
 }
 
 async function remove(ctx) {
-    ctx.body = await repository.remove();
+    ctx.body = await repository.remove(ctx.params.id);
 }
 
 function getById(ctx) {

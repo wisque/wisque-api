@@ -14,7 +14,7 @@ const defaults = {
     version: 'v1',
     logging: true,
     mongodb: {
-        host: 'mongodb',
+        host: 'localhost',
         database: 'wisque-development',
         port: 27017,
         buildConnectionUrl() {

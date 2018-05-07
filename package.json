@@ -21,10 +21,12 @@
     "lodash": "^4.15.0",
     "moment": "2.22.1",
     "mongoose": "^4.6.0",
+    "mongoose-paranoid-plugin": "0.0.2",
     "morgan-json": "1.1.0",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-jwt": "^4.0.0",
+    "shortid": "2.2.8",
     "validator": "^5.7.0",
     "winston": "2.4.2",
     "winston-mongodb": "3.0.0"

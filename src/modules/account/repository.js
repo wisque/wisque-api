@@ -10,11 +10,11 @@ module.exports = {
 };
 
 function getAll() {
-    return Account.find();
+    return Account.find().then(docs => docs.forEach(doc => doc.toJSON));
 }
 
 function create(account) {
-    return Account.create(account);
+    return Account.create(account).then(doc => doc.toJSON());
 }
 
 function update() {
@@ -22,13 +22,13 @@ function update() {
 }
 
 function remove(id) {
-    return Account.remove({ id });
+    return Account.remove({ _id: id });
 }
 
 function getById(id) {
-    return Account.findOne({ id });
+    return Account.findOne({ _id: id }).then(doc => doc && doc.toJSON());
 }
 
 function findOne(query) {
-    return Account.findOne(query);
+    return Account.findOne(query).then(doc => doc && doc.toJSON());
 }

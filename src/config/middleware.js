@@ -31,7 +31,7 @@ module.exports = function mw(app) {
 
             return ip;
         });
-    
+
         app.use(morgan(format, { stream: logger.stream }));
     }
     app.use(bodyParser());

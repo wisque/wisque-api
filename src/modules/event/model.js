@@ -1,4 +1,4 @@
-const mongo = require('mongoose');
+const mongo = require('src/db');
 
 const event = {
     title: {
@@ -19,4 +19,10 @@ const event = {
     },
 };
 
-module.exports = mongo.model('Event', new mongo.Schema(event));
+module.exports = mongo.model('Event', new mongo.Schema(event, {
+    paranoid: true,
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
+}));

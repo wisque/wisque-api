@@ -1,8 +1,13 @@
-const mongo = require('mongoose');
+const mongo = require('src/db');
 
 const account = {
-    id: { type: String },
     social_network_id: { type: String },
 };
 
-module.exports = mongo.model('Account', new mongo.Schema(account));
+module.exports = mongo.model('Account', new mongo.Schema(account, {
+    paranoid: true,
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+    },
+}));

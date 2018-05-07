@@ -27,7 +27,7 @@ async function verifyJwt(payload, done) {
 function generateToken(payload) {
     const claims = {
         // eslint-disable-next-line no-underscore-dangle
-        accountId: payload._id,
+        accountId: payload.id,
         type: payload.type,
     };
 

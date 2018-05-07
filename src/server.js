@@ -2,22 +2,19 @@ require('./config/path').init();
 
 const Koa = require('koa');
 const configure = require('src/config/middleware');
-const configuration = require('src/config/env');
-const Mongo = require('src/db');
+const config = require('src/config/env');
 const logger = require('src/lib/logger');
 
 const app = new Koa();
 
 configure(app);
 
-app.context.db = new Mongo(configuration.mongodb);
-
-app.listen(configuration.port, () => {
+app.listen(config.port, () => {
     logger.info(`
     ==============================
     WISQUE APP API   *************
-    NOW RUNNING ON PORT ${configuration.port} *****
-    ENVIRONMENT IS ${configuration.env.toUpperCase()}
+    NOW RUNNING ON PORT ${config.port} *****
+    ENVIRONMENT IS ${config.env.toUpperCase()}
     ==============================
     `);
 });

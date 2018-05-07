@@ -21,9 +21,9 @@ async function update() {
 }
 
 async function remove(id) {
-    return Event.remove({ id });
+    return Event.deleteOne({ _id: id });
 }
 
 function getById(id) {
-    return Event.findOne({ id });
+    return Event.findOne({ _id: id });
 }

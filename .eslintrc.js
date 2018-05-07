@@ -17,6 +17,7 @@ module.exports = {
         'no-param-reassign': 'off',
         'generator-star-spacing': 'off',
         'import/prefer-default-export': 'off',
-        'no-use-before-define': 'off'
+        'no-use-before-define': 'off',
+        'no-underscore-dangle': 'off',
     }
 };
