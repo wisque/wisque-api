@@ -35,7 +35,11 @@ const defaults = {
         clientID: '154731858660245',
         clientSecret: 'f9916fa2be5b3ddc3eb71423162afeda',
         callbackPath: '/v1/accounts/facebook/callback',
-
+    },
+    vk: {
+        clientID: '6360920',
+        clientSecret: 'pFbnnmDNFvYHQRzr5Rj2',
+        callbackPath: '/v1/accounts/vk/callback',
     },
 };
 

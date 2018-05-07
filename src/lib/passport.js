@@ -1,8 +1,9 @@
 const passport = require('koa-passport');
-const FacebookStrategy = require('passport-facebook');
-const FacebookTokenStrategy = require('passport-facebook-token');
+const FBStrategy = require('passport-facebook');
+const FBTokenStrategy = require('passport-facebook-token');
+const VKTokenStrategy = require('passport-vkontakte-token');
 const { Strategy: JwtStrategy, ExtractJwt } = require('passport-jwt');
-const { verifyFacebook, verifyJwt } = require('src/modules/account/service');
+const { verifySocialNetwork, verifyJwt } = require('src/modules/account/service');
 
 const config = require('src/config/env');
 
@@ -18,13 +19,21 @@ const facebookTokenStrategyOptions = {
     clientSecret: config.facebook.clientSecret,
 };
 
-const facebookStrategyOptions = {
+const facebookWebStrategyOptions = {
     ...facebookTokenStrategyOptions,
     callbackURL: `${config.buildApiUrl()}${config.facebook.callbackPath}`,
 };
 
-passport.use('facebook-web', new FacebookStrategy(facebookStrategyOptions, verifyFacebook));
-passport.use('facebook-token', new FacebookTokenStrategy(facebookTokenStrategyOptions, verifyFacebook));
+const vkTokenStrategyOptions = {
+    clientID: config.vk.clientID,
+    clientSecret: config.vk.clientSecret,
+};
+
+
+
+passport.use('facebook-web', new FBStrategy(facebookWebStrategyOptions, verifySocialNetwork('facebook')));
+passport.use('facebook-token', new FBTokenStrategy(facebookTokenStrategyOptions, verifySocialNetwork('facebook')));
+passport.use('vk-token', new VKTokenStrategy(vkTokenStrategyOptions, verifySocialNetwork('vk')));
 passport.use('jwt', new JwtStrategy(jwtStrategyOptions, verifyJwt));
 
 module.exports = passport;

@@ -3,19 +3,21 @@ const config = require('src/config/env');
 const accountRepository = require('src/modules/account/repository');
 
 module.exports = {
-    verifyFacebook,
+    verifySocialNetwork,
     verifyJwt,
     generateToken,
 };
 
-async function verifyFacebook(accessToken, refreshToken, profile, cb) {
-    let account = await accountRepository.findOne({ social_network_id: profile.id });
+function verifySocialNetwork(network) {
+    return async function verify(accessToken, refreshToken, profile, cb) {
+        let account = await accountRepository.findOne({ social_network_id: profile.id, network });
 
-    if (!account) {
-        account = await accountRepository.create({ social_network_id: profile.id });
-    }
+        if (!account) {
+            account = await accountRepository.create({ social_network_id: profile.id, network });
+        }
 
-    cb(null, account);
+        cb(null, account);
+    };
 }
 
 async function verifyJwt(payload, done) {
