@@ -6,6 +6,7 @@ const account = {
 
 module.exports = mongo.model('Account', new mongo.Schema(account, {
     paranoid: true,
+    idPrefix: 'acct',
     timestamps: {
         createdAt: 'created_at',
         updatedAt: 'updated_at',

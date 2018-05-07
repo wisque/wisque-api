@@ -29,7 +29,7 @@
     "passport-jwt": "^4.0.0",
     "passport-vkontakte": "0.3.2",
     "passport-vkontakte-token": "2.1.0",
-    "shortid": "2.2.8",
+    "prefixed-id": "0.0.1",
     "validator": "^5.7.0",
     "winston": "2.4.2",
     "winston-mongodb": "3.0.0"

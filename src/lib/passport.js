@@ -29,8 +29,6 @@ const vkTokenStrategyOptions = {
     clientSecret: config.vk.clientSecret,
 };
 
-
-
 passport.use('facebook-web', new FBStrategy(facebookWebStrategyOptions, verifySocialNetwork('facebook')));
 passport.use('facebook-token', new FBTokenStrategy(facebookTokenStrategyOptions, verifySocialNetwork('facebook')));
 passport.use('vk-token', new VKTokenStrategy(vkTokenStrategyOptions, verifySocialNetwork('vk')));

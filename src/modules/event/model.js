@@ -21,6 +21,7 @@ const event = {
 
 module.exports = mongo.model('Event', new mongo.Schema(event, {
     paranoid: true,
+    idPrefix: 'evnt',
     timestamps: {
         createdAt: 'created_at',
         updatedAt: 'updated_at',

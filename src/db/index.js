@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 const logger = require('src/lib/logger');
 const mongooseParanoidPlugin = require('mongoose-paranoid-plugin');
-const shortid = require('shortid');
 const { mongodb } = require('src/config/env');
+const PrefixedId = require('prefixed-id');
+
+const generate = new PrefixedId();
 
 class Mongo {
     constructor() {
@@ -27,7 +29,7 @@ function shortIdPlugin(schema) {
     schema.add({ _id: 'string' });
     schema.pre('save', function generateId(next) {
         if (!this._id) {
-            this._id = shortid.generate();
+            this._id = generate.new(schema.options.idPrefix);
         }
 
         next();
