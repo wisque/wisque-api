@@ -12,8 +12,17 @@ function verifySocialNetwork(network) {
     return async function verify(accessToken, refreshToken, profile, cb) {
         let account = await accountRepository.findOne({ social_network_id: profile.id, network });
 
+        const profileDto = { ...profile._json, gender: profile.gender };
+
         if (!account) {
-            account = await accountRepository.create({ social_network_id: profile.id, network });
+            account = await accountRepository.create({
+                social_network_id: profile.id,
+                network,
+                gender: profileDto.gender,
+                firstName: profileDto.first_name,
+                lastName: profileDto.last_name,
+                photo: profileDto.photo,
+            });
         }
 
         cb(null, account);

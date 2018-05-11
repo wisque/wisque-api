@@ -2,6 +2,11 @@ const mongo = require('src/db');
 
 const account = {
     social_network_id: { type: String },
+    network: { type: String },
+    gender: { type: String },
+    first_name: { type: String },
+    last_name: { type: String },
+    photo: { type: String },
 };
 
 module.exports = mongo.model('Account', new mongo.Schema(account, {

@@ -39,10 +39,10 @@ function shortIdPlugin(schema) {
 function renameIdPlugin(schema) {
     return schema.method('toJSON', function toJSON() {
         const obj = this.toObject();
-    
+
         obj.id = obj._id;
         delete obj._id;
-    
+
         return obj;
     });
 }
