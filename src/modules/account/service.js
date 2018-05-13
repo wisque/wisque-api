@@ -14,13 +14,15 @@ function verifySocialNetwork(network) {
 
         const profileDto = { ...profile._json, gender: profile.gender };
 
+        console.log(profile);
+
         if (!account) {
             account = await accountRepository.create({
                 social_network_id: profile.id,
                 network,
                 gender: profileDto.gender,
-                firstName: profileDto.first_name,
-                lastName: profileDto.last_name,
+                first_name: profileDto.first_name,
+                last_name: profileDto.last_name,
                 photo: profileDto.photo,
             });
         }
