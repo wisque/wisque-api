@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('src/config/env');
-const accountRepository = require('src/modules/account/repository');
+const accountRepository = require('src/modules/account/model').repository;
 const vkConstants = require('src/constants/vk');
 
 module.exports = {

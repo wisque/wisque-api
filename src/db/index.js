@@ -3,26 +3,42 @@ const logger = require('src/lib/logger');
 const mongooseParanoidPlugin = require('mongoose-paranoid-plugin');
 const { mongodb } = require('src/config/env');
 const PrefixedId = require('prefixed-id');
+const initialize = require('./repository');
 
 const generate = new PrefixedId();
 
 class Mongo {
-    constructor() {
-        mongoose.Promise = global.Promise;
+    constructor(mongo) {
+        this.mongo = mongo;
 
-        mongoose.plugin(mongooseParanoidPlugin, { field: 'deleted_at' });
-        mongoose.plugin(shortIdPlugin);
-        mongoose.plugin(renameIdPlugin);
+        this.mongo.Promise = global.Promise;
 
-        mongoose.connect(mongodb.buildConnectionUrl());
+        this.mongo.plugin(mongooseParanoidPlugin, { field: 'deleted_at' });
+        this.mongo.plugin(shortIdPlugin);
+        this.mongo.plugin(renameIdPlugin);
+
+        this.mongo.connect(mongodb.buildConnectionUrl());
 
         // eslint-disable-next-line no-console
-        mongoose.connection.on('open', () => logger.info(`MongoDB ${mongodb.database} connection -> established`));
+        this.mongo.connection.on('open', () => logger.info(`MongoDB ${mongodb.database} connection -> established`));
         // eslint-disable-next-line no-console
-        mongoose.connection.on('close', () => logger.log(`MongoDB ${mongodb.database} connection -> disconnected`));
+        this.mongo.connection.on('close', () => logger.log(`MongoDB ${mongodb.database} connection -> disconnected`));
 
-        return mongoose;
+        modelPatch(this.mongo);
+
+        return this.mongo;
     }
+}
+
+function modelPatch(mongo) {
+    const oldModel = mongo.model;
+
+    mongo.model = function model(...args) {
+        const Model = oldModel.apply(this, args);
+        Model.repository = initialize(Model);
+
+        return Model;
+    };
 }
 
 function shortIdPlugin(schema) {
@@ -47,4 +63,4 @@ function renameIdPlugin(schema) {
     });
 }
 
-module.exports = new Mongo();
+module.exports = new Mongo(mongoose);

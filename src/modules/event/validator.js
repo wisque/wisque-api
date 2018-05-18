@@ -1,4 +1,4 @@
-const Event = require('./model');
+const Event = require('src/modules/event/model');
 
 module.exports = async function (ctx, next) {
     const event = new Event(ctx.request.body);
@@ -10,7 +10,6 @@ module.exports = async function (ctx, next) {
 
         await next();
     } catch (validation) {
-        console.log(validation);
         const errors = Object.keys(validation.errors);
         const response = { errors: [] };
 

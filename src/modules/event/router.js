@@ -1,17 +1,17 @@
 const Router = require('koa-router');
 const { buildParamMiddleware } = require('src/utils/helpers');
-const controller = require('./controller');
-const repository = require('./repository');
-const validator = require('./validator');
+const controller = require('src/modules/event/controller');
+const eventRepository = require('src/modules/event/model').repository;
+const validator = require('src/modules/event/validator');
 
 const router = new Router();
 
-router.get('/', controller.getAll);
+router.get('/', controller.findAll);
 router.post('/', validator, controller.create);
 router.put('/:id', controller.update);
 router.delete('/:id', controller.remove);
-router.get('/:id', controller.getById);
+router.get('/:id', controller.findById);
 
-router.param('id', buildParamMiddleware(repository.getById, 'event'));
+router.param('id', buildParamMiddleware(eventRepository.findById, 'event'));
 
 module.exports = router.routes();

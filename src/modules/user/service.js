@@ -1,4 +1,4 @@
-const accountRepository = require('src/modules/account/repository');
+const accountRepository = require('src/modules/account/model').repository;
 
 module.exports = {
     getCurrent,

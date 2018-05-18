@@ -1,29 +1,29 @@
-const repository = require('./repository');
+const eventRepository = require('src/modules/event/model').repository;
 
 module.exports = {
-    getAll,
+    findAll,
     create,
     update,
     remove,
-    getById,
+    findById,
 };
 
-async function getAll(ctx) {
-    ctx.body = await repository.getAll();
+async function findAll(ctx) {
+    ctx.body = await eventRepository.findAll();
 }
 
 async function create(ctx) {
-    ctx.body = await repository.create(ctx.request.body);
+    ctx.body = await eventRepository.create(ctx.request.body);
 }
 
 async function update(ctx) {
-    ctx.body = await repository.update();
+    ctx.body = await eventRepository.update();
 }
 
 async function remove(ctx) {
-    ctx.body = await repository.remove(ctx.params.id);
+    ctx.body = await eventRepository.remove({ _id: ctx.params.id });
 }
 
-function getById(ctx) {
+function findById(ctx) {
     ctx.body = ctx.state.event;
 }
