@@ -21,7 +21,7 @@
     "lodash": "^4.15.0",
     "moment": "2.22.1",
     "mongoose": "^4.6.0",
-    "mongoose-paranoid-plugin": "0.0.2",
+    "mongoose-paranoid-plugin": "0.1.0",
     "morgan-json": "1.1.0",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",

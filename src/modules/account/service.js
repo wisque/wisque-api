@@ -1,33 +1,70 @@
 const jwt = require('jsonwebtoken');
 const config = require('src/config/env');
 const accountRepository = require('src/modules/account/repository');
+const vkConstants = require('src/constants/vk');
 
 module.exports = {
-    verifySocialNetwork,
+    verifyFB,
     verifyJwt,
     generateToken,
+    verifyVK,
 };
 
-function verifySocialNetwork(network) {
-    return async function verify(accessToken, refreshToken, profile, cb) {
-        let account = await accountRepository.findOne({ social_network_id: profile.id, network });
+async function verifyVK(accessToken, refreshToken, profile, cb) {
+    const accountQuery = { social_network_id: profile.id, network: 'vk' };
+    let account = await accountRepository.findOne(accountQuery);
 
-        const profileDto = { ...profile._json, gender: profile.gender };
+    const profileDto = mapVKFields(profile._json);
 
-        console.log(profile);
+    if (!account) {
+        account = await accountRepository.create(profileDto);
+    } else {
+        account = await accountRepository.update(accountQuery, profileDto);
+    }
 
-        if (!account) {
-            account = await accountRepository.create({
-                social_network_id: profile.id,
-                network,
-                gender: profileDto.gender,
-                first_name: profileDto.first_name,
-                last_name: profileDto.last_name,
-                photo: profileDto.photo,
-            });
-        }
+    cb(null, { id: account.id });
+}
 
-        cb(null, account);
+function mapVKFields(profile) {
+    return {
+        social_network_id: profile.id,
+        network: 'vk',
+        country: vkConstants.countries[profile.country],
+        gender: vkConstants.genders[profile.sex] || 'unknown',
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        photo: profile.photo_400_orig,
+        email: profile.email,
+        birthday: (profile.bdate || '').replace(/\./g, '/'),
+    };
+}
+
+async function verifyFB(accessToken, refreshToken, profile, cb) {
+    const accountQuery = { social_network_id: profile.id, network: 'fb' };
+    let account = await accountRepository.findOne(accountQuery);
+
+    const profileDto = mapFBFields(profile._json);
+
+    if (!account) {
+        account = await accountRepository.create(profileDto);
+    } else {
+        account = await accountRepository.update(accountQuery, profileDto);
+    }
+
+    cb(null, { id: account.id });
+}
+
+function mapFBFields(profile) {
+    return {
+        social_network_id: profile.id,
+        network: 'fb',
+        country: profile.location.location.country,
+        gender: profile.gender || 'unknown',
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        photo: profile.picture.data.url,
+        email: profile.email,
+        birthday: profile.birthday,
     };
 }
 
@@ -39,7 +76,6 @@ async function verifyJwt(payload, done) {
 
 function generateToken(payload) {
     const claims = {
-        // eslint-disable-next-line no-underscore-dangle
         accountId: payload.id,
         type: payload.type,
     };

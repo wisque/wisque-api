@@ -7,6 +7,9 @@ const account = {
     first_name: { type: String },
     last_name: { type: String },
     photo: { type: String },
+    email: { type: String },
+    country: { type: String },
+    birthday: { type: String },
 };
 
 module.exports = mongo.model('Account', new mongo.Schema(account, {

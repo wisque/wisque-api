@@ -16,8 +16,8 @@ async function create(event) {
     return Event.create(event);
 }
 
-async function update() {
-    return Event.update();
+async function update(query, data) {
+    return Event.update(query, data);
 }
 
 async function remove(id) {
@@ -25,5 +25,5 @@ async function remove(id) {
 }
 
 function getById(id) {
-    return Event.findOne({ _id: id });
+    return Event.findById(id);
 }

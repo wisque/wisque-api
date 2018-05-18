@@ -17,8 +17,8 @@ function create(account) {
     return Account.create(account).then(doc => doc.toJSON());
 }
 
-function update() {
-    return Account.update();
+function update(query, data) {
+    return Account.update(query, data);
 }
 
 function remove(id) {
