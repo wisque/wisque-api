@@ -3,7 +3,7 @@ const mongo = require('src/db');
 const event = {
     title: {
         type: String,
-        required: [true, 'Party should have title'],
+        required: [true, 'Event should have title'],
     },
     lat: {
         type: Number,
