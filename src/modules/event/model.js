@@ -17,6 +17,10 @@ const event = {
         max: [180, 'Longitude can not be more than 180 degree'],
         default: 360,
     },
+    created_by_account_id: {
+        type: String,
+        ref: 'Account',
+    },
 };
 
 module.exports = mongo.model('Event', new mongo.Schema(event, {

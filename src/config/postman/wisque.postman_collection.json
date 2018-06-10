@@ -1,0 +1,273 @@
+{
+	"info": {
+		"_postman_id": "7c0f853e-d5f0-4c7c-a070-4a2c694a431c",
+		"name": "Wisque",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Events",
+			"description": "",
+			"item": [
+				{
+					"name": "Access Requests",
+					"description": "",
+					"item": [
+						{
+							"name": "Create access request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/event_NN1JCGyVF4STdv1J/access-requests",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"event_NN1JCGyVF4STdv1J",
+										"access-requests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get access requests by event id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/5aef7835641257047a56b817/access-requests/",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"5aef7835641257047a56b817",
+										"access-requests",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Approve access requests",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/5aef7835641257047a56b817/access-requests/5aef8fc855390b05bfbad155/approve",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"5aef7835641257047a56b817",
+										"access-requests",
+										"5aef8fc855390b05bfbad155",
+										"approve"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Decline access request",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/5aef7835641257047a56b817/access-requests/5aef80c21ce50404aab4018d/decline",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"5aef7835641257047a56b817",
+										"access-requests",
+										"5aef80c21ce50404aab4018d",
+										"decline"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Get last created event by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/events/event_NN1JCGyVF4STdv1J",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"events",
+								"event_NN1JCGyVF4STdv1J"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get events",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/events/",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete event by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "localhost:4000/v1/events/event_NN1JCGyVF4STdv1J",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"v1",
+								"events",
+								"event_NN1JCGyVF4STdv1J"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create event",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"PARTY34277662\",\n\t\"lat\": \"50\",\n\t\"lng\": \"50\"\n}"
+						},
+						"url": {
+							"raw": "{{api.gateway}}/v1/events/",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"events",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"description": "",
+			"item": [
+				{
+					"name": "Get current user info",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/users/me",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
