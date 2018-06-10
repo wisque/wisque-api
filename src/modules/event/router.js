@@ -1,5 +1,4 @@
 const Router = require('koa-router');
-const accessRequestRouter = require('./access-request/router');
 const { buildParamMiddleware } = require('src/utils/helpers');
 const controller = require('src/modules/event/controller');
 const eventRepository = require('src/modules/event/model').repository;
