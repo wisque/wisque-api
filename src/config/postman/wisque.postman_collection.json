@@ -15,6 +15,19 @@
 					"item": [
 						{
 							"name": "Create access request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "160e57b1-4eaf-4706-8b8f-0de10cb00f8f",
+										"type": "text/javascript",
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"last.created.access.request.id\", data.id);"
+										]
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [
@@ -28,14 +41,14 @@
 									"raw": ""
 								},
 								"url": {
-									"raw": "{{api.gateway}}/v1/events/event_NN1JCGyVF4STdv1J/access-requests",
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests",
 									"host": [
 										"{{api.gateway}}"
 									],
 									"path": [
 										"v1",
 										"events",
-										"event_NN1JCGyVF4STdv1J",
+										"{{last.created.event.id}}",
 										"access-requests"
 									]
 								}
@@ -54,16 +67,15 @@
 								],
 								"body": {},
 								"url": {
-									"raw": "{{api.gateway}}/v1/events/5aef7835641257047a56b817/access-requests/",
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests",
 									"host": [
 										"{{api.gateway}}"
 									],
 									"path": [
 										"v1",
 										"events",
-										"5aef7835641257047a56b817",
-										"access-requests",
-										""
+										"{{last.created.event.id}}",
+										"access-requests"
 									]
 								}
 							},
@@ -81,16 +93,16 @@
 								],
 								"body": {},
 								"url": {
-									"raw": "{{api.gateway}}/v1/events/5aef7835641257047a56b817/access-requests/5aef8fc855390b05bfbad155/approve",
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests/{{last.created.access.request.id}}/approve",
 									"host": [
 										"{{api.gateway}}"
 									],
 									"path": [
 										"v1",
 										"events",
-										"5aef7835641257047a56b817",
+										"{{last.created.event.id}}",
 										"access-requests",
-										"5aef8fc855390b05bfbad155",
+										"{{last.created.access.request.id}}",
 										"approve"
 									]
 								}
@@ -109,16 +121,16 @@
 								],
 								"body": {},
 								"url": {
-									"raw": "{{api.gateway}}/v1/events/5aef7835641257047a56b817/access-requests/5aef80c21ce50404aab4018d/decline",
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests/{{last.created.access.request.id}}/decline",
 									"host": [
 										"{{api.gateway}}"
 									],
 									"path": [
 										"v1",
 										"events",
-										"5aef7835641257047a56b817",
+										"{{last.created.event.id}}",
 										"access-requests",
-										"5aef80c21ce50404aab4018d",
+										"{{last.created.access.request.id}}",
 										"decline"
 									]
 								}
@@ -140,14 +152,14 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "{{api.gateway}}/v1/events/event_NN1JCGyVF4STdv1J",
+							"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}",
 							"host": [
 								"{{api.gateway}}"
 							],
 							"path": [
 								"v1",
 								"events",
-								"event_NN1JCGyVF4STdv1J"
+								"{{last.created.event.id}}"
 							]
 						}
 					},
@@ -190,7 +202,7 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "localhost:4000/v1/events/event_NN1JCGyVF4STdv1J",
+							"raw": "localhost:4000/v1/events/{{last.created.event.id}}",
 							"host": [
 								"localhost"
 							],
@@ -198,7 +210,7 @@
 							"path": [
 								"v1",
 								"events",
-								"event_NN1JCGyVF4STdv1J"
+								"{{last.created.event.id}}"
 							]
 						}
 					},
@@ -206,6 +218,19 @@
 				},
 				{
 					"name": "Create event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fc02b9c8-d5b7-4d33-b865-fa762164c023",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"last.created.event.id\", data.id);"
+								]
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -220,7 +245,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"PARTY34277662\",\n\t\"lat\": \"50\",\n\t\"lng\": \"50\"\n}"
+							"raw": "{\n\t\"title\": \"PARTY_NEW\",\n\t\"lat\": \"50\",\n\t\"lng\": \"50\"\n}"
 						},
 						"url": {
 							"raw": "{{api.gateway}}/v1/events/",
@@ -262,6 +287,130 @@
 								"v1",
 								"users",
 								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Attachments",
+			"description": null,
+			"item": [
+				{
+					"name": "Create attachments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "895976b7-5768-4cca-acf3-0afab045aada",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"last.created.attachment.id\", data[0].id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"value": "",
+									"description": "",
+									"type": "file"
+								},
+								{
+									"key": "file2",
+									"value": "",
+									"description": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{api.gateway}}/v1/attachments/",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"attachments",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get attachment content",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/attachments/{{last.created.attachment.id}}/content",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"attachments",
+								"{{last.created.attachment.id}}",
+								"content"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get attachment",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/attachments/{{last.created.attachment.id}}/content",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"attachments",
+								"{{last.created.attachment.id}}",
+								"content"
 							]
 						}
 					},
