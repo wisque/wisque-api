@@ -10,7 +10,7 @@ async function authMiddleware(ctx, next) {
             await next(err); // handle error passed from password-jwt in strange way (as 3rd parameter)
         } else if (additionalError instanceof Error) {
             if (additionalError) {
-                ctx.status = 403;
+                ctx.status = 401;
                 ctx.body = {
                     errors: [{
                         jwt: additionalError.message,
@@ -22,7 +22,7 @@ async function authMiddleware(ctx, next) {
 
             await next();
         } else {
-            ctx.status = 403;
+            ctx.status = 401;
             ctx.body = {
                 errors: [{
                     jwt: 'Invalid token',
