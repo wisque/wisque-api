@@ -5,6 +5,7 @@ const event = require('src/modules/event/router');
 const account = require('src/modules/account/router');
 const user = require('src/modules/user/router');
 const attachment = require('src/modules/attachment/router');
+const location = require('src/modules/location/router');
 
 const router = new Router();
 
@@ -13,5 +14,6 @@ router.use(authMiddleware);
 router.use(versionify('/events'), event);
 router.use(versionify('/users'), user);
 router.use(versionify('/attachments'), attachment);
+router.use(versionify('/locations'), location);
 
 module.exports = router.routes();

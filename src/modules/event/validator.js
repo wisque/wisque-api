@@ -8,17 +8,17 @@ module.exports = {
 async function validateCreate(ctx) {
     const { body } = ctx.request;
 
-    if (!body.title) {
-        this.validationError('title', 'Title is required');
-    }
-
-    if (!body.lat) {
-        this.validationError('lat', 'Latitude is required');
-    }
-
-    if (!body.lng) {
-        this.validationError('lat', 'Longitude is required');
-    }
+    // if (!body.title) {
+    //     this.validationError('title', 'Title is required');
+    // }
+    //
+    // if (!body.lat) {
+    //     this.validationError('lat', 'Latitude is required');
+    // }
+    //
+    // if (!body.lng) {
+    //     this.validationError('lat', 'Longitude is required');
+    // }
 }
 
 async function validateUpdate() {

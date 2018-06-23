@@ -1,29 +1,31 @@
-const eventRepository = require('src/modules/event/model').repository;
+const eventService = require('src/modules/event/service');
 
 module.exports = {
     findAll,
-    create,
+    createPrivate,
     update,
     remove,
     findById,
 };
 
 async function findAll(ctx) {
-    ctx.body = await eventRepository.findAll();
+    ctx.body = await eventService.findAll();
 }
 
-async function create(ctx) {
+async function createPrivate(ctx) {
     const event = ctx.request.body;
-    event.created_by_account_id = ctx.state.user.id;
-    ctx.body = await eventRepository.create(event);
+    const account = ctx.state.user;
+    ctx.body = await eventService.createPrivate(event, account);
 }
 
 async function update(ctx) {
-    ctx.body = await eventRepository.update();
+    const event = ctx.request.body;
+    ctx.body = await eventService.update(event);
 }
 
 async function remove(ctx) {
-    ctx.body = await eventRepository.remove({ _id: ctx.params.id });
+    const eventId = ctx.params.id;
+    ctx.body = await eventService.remove(eventId);
 }
 
 function findById(ctx) {
