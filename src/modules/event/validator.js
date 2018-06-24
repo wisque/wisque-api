@@ -5,8 +5,8 @@ module.exports = {
     validateUpdate: new Validator(validateUpdate),
 };
 
-async function validateCreate(ctx) {
-    const { body } = ctx.request;
+async function validateCreate() {
+    // const { body } = ctx.request;
 
     // if (!body.title) {
     //     this.validationError('title', 'Title is required');
