@@ -24,7 +24,6 @@ async function create(location, account) {
 }
 
 async function update(locationId, fieldsForUpdate) {
-
     return locationRepository.update(
         { _id: locationId },
         { $set: fieldsForUpdate },

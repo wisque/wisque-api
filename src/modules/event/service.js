@@ -17,7 +17,7 @@ async function findAll() {
 async function createPrivate(event, account) {
     if (event.location) {
         const newLocation = await locationService.create(event.location, account);
-        event.locationId = newLocation.id;
+        event.location_id = newLocation.id;
         delete event.location;
     }
 
@@ -26,9 +26,9 @@ async function createPrivate(event, account) {
         description: event.description,
         type: eventTypes.private,
         category: event.category ? event.category : eventCategories.flatParty,
-        starting_at: getDateFromTimestamp(event.startingAt),
-        location_id: event.locationId,
-        creator_attachments: event.creatorAttachments,
+        starting_at: event.starting_at,
+        location_id: event.location_id,
+        creator_attachments: event.creator_attachments,
         created_by_account_id: account.id,
         updated_by_account_id: account.id,
     };
@@ -36,10 +36,11 @@ async function createPrivate(event, account) {
     return eventRepository.create(newEvent);
 }
 
-async function update(event) {
+async function update(eventId, accountId, fieldsForUpdate) {
+    fieldsForUpdate.updated_by_account_id = accountId;
     return eventRepository.update(
-        { _id: event.id },
-        { $set: event },
+        { _id: eventId },
+        { $set: fieldsForUpdate },
     );
 }
 
@@ -51,8 +52,3 @@ async function findById(eventId) {
     return eventRepository.findOne({ id: eventId });
 }
 
-function getDateFromTimestamp(timestamp) {
-    const date = new Date();
-    date.setTime(timestamp);
-    return date;
-}

@@ -17,8 +17,8 @@ const event = {
         required: [true, 'Event should have category'],
     },
     starting_at: {
-        type: Date,
-        default: Date.now,
+        type: Number,
+        default: 0,
     },
     location_id: {
         type: String,

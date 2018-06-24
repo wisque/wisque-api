@@ -1,5 +1,6 @@
 const accessRequestRepository = require('src/modules/event/access-request/model').repository;
 const accessRequestStatuses = require('./constants');
+const eventService = require('src/modules/event/service');
 
 module.exports = {
     create,
@@ -17,8 +18,25 @@ async function create(eventId, accountId) {
     return accessRequestRepository.create(accessRequest);
 }
 
-async function approve(accessRequestId, updatedByAccountId) {
-    return updateStatus(accessRequestId, updatedByAccountId, accessRequestStatuses.approved);
+async function approve(accessRequestId, updatedByAccountId, event) {
+    const updatedAccessRequest = await updateStatus(
+        accessRequestId,
+        updatedByAccountId,
+        accessRequestStatuses.approved,
+    );
+
+    if (updatedAccessRequest.status === accessRequestStatuses.approved &&
+        !event.members.includes(updatedAccessRequest.created_by_account_id)) {
+        event.members.push(updatedAccessRequest.created_by_account_id);
+
+        const fieldsForUpdate = {
+            members: event.members,
+        };
+
+        await eventService.update(event.id, updatedByAccountId, fieldsForUpdate);
+    }
+
+    return updatedAccessRequest;
 }
 
 async function decline(accessRequestId, updatedByAccountId) {

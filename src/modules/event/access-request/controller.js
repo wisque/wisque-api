@@ -19,16 +19,14 @@ async function create(ctx) {
 }
 
 async function approve(ctx) {
-    await updateStatus(ctx, service.approve);
+    const { accessRequest, event } = ctx.state;
+    const updatedByAccount = ctx.state.user;
+    ctx.body = await service.approve(accessRequest.id, updatedByAccount.id, event);
 }
 
 async function decline(ctx) {
-    await updateStatus(ctx, service.decline);
-}
-
-async function updateStatus(ctx, updateStatusCallback) {
     const { accessRequest } = ctx.state;
     const updatedByAccount = ctx.state.user;
-    ctx.body = await updateStatusCallback(accessRequest.id, updatedByAccount.id);
+    ctx.body = await service.decline(accessRequest.id, updatedByAccount.id);
 }
 
