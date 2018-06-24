@@ -1,23 +1,47 @@
 const mongo = require('src/db');
 
 const event = {
-    title: {
+    name: {
         type: String,
-        required: [true, 'Event should have title'],
+        required: [true, 'Event should have name'],
     },
-    lat: {
+    description: {
+        type: String,
+    },
+    type: {
+        type: String,
+        required: [true, 'Event should have type'],
+    },
+    category: {
+        type: String,
+        required: [true, 'Event should have category'],
+    },
+    starting_at: {
         type: Number,
-        min: [-90, 'Latitude can not be less -90 degree'],
-        max: [90, 'Latitude can not be more than 90 degree'],
-        default: 180,
+        default: 0,
     },
-    lng: {
-        type: Number,
-        min: [-180, 'Longitude can not be less -180 degree'],
-        max: [180, 'Longitude can not be more than 180 degree'],
-        default: 360,
+    location_id: {
+        type: String,
+        ref: 'Location',
+        required: [true, 'Event should have location'],
     },
+    creator_attachments: [{
+        type: String,
+        ref: 'Attachment',
+    }],
+    member_attachments: [{
+        type: String,
+        ref: 'Attachment',
+    }],
+    members: [{
+        type: String,
+        ref: 'Account',
+    }],
     created_by_account_id: {
+        type: String,
+        ref: 'Account',
+    },
+    updated_by_account_id: {
         type: String,
         ref: 'Account',
     },

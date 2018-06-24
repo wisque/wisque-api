@@ -196,17 +196,20 @@
 						"method": "DELETE",
 						"header": [
 							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
 								"key": "x-access-token",
 								"value": "{{access.token}}"
 							}
 						],
 						"body": {},
 						"url": {
-							"raw": "localhost:4000/v1/events/{{last.created.event.id}}",
+							"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}",
 							"host": [
-								"localhost"
+								"{{api.gateway}}"
 							],
-							"port": "4000",
 							"path": [
 								"v1",
 								"events",
@@ -245,17 +248,49 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"title\": \"PARTY_NEW\",\n\t\"lat\": \"50\",\n\t\"lng\": \"50\"\n}"
+							"raw": "{\n\t\"name\": \"PARTY_NEW6\",\n\t\"description\": \"50\",\n\t\"category\": \"flatParty\",\n\t\"starting_at\": 3232323223323,\n\t\"location\": {\n\t\t\"name\": \"Home\",\n\t\t\"address\": \"Lenin street\",\n\t\t\"lat\": 43,\n\t\t\"lng\": 88\n\t}\n}"
 						},
 						"url": {
-							"raw": "{{api.gateway}}/v1/events/",
+							"raw": "{{api.gateway}}/v1/events/private",
 							"host": [
 								"{{api.gateway}}"
 							],
 							"path": [
 								"v1",
 								"events",
-								""
+								"private"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update event",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"PARTY_233\",\n\t\"description\": \"\",\n\t\"starting_at\": 3232323223323\n}"
+						},
+						"url": {
+							"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"events",
+								"{{last.created.event.id}}"
 							]
 						}
 					},
@@ -411,6 +446,172 @@
 								"attachments",
 								"{{last.created.attachment.id}}",
 								"content"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"description": "",
+			"item": [
+				{
+					"name": "Get all locations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/locations/",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0d9fc2b5-456c-4736-a26f-bf5bfed7c962",
+								"type": "text/javascript",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"last.created.location.id\", data.id);"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Home\",\n\t\"address\": \"Dz street\",\n\t\"lat\": 43,\n\t\"lng\": 88\n}"
+						},
+						"url": {
+							"raw": "{{api.gateway}}/v1/locations/",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"locations",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update location",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Yep\",\n\t\"address\": \"Yep street\",\n\t\"lat\": 43,\n\t\"lng\": 88\n}"
+						},
+						"url": {
+							"raw": "{{api.gateway}}/v1/locations/{{last.created.location.id}}",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"locations",
+								"{{last.created.location.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete location",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/locations/{{last.created.location.id}}",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"locations",
+								"{{last.created.location.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get last created location by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "{{access.token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{api.gateway}}/v1/locations/{{last.created.location.id}}",
+							"host": [
+								"{{api.gateway}}"
+							],
+							"path": [
+								"v1",
+								"locations",
+								"{{last.created.location.id}}"
 							]
 						}
 					},
