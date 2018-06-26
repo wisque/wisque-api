@@ -30,6 +30,7 @@ async function remove(ctx) {
     ctx.body = await eventService.remove(eventId);
 }
 
-function findById(ctx) {
-    ctx.body = ctx.state.event;
+async function findById(ctx) {
+    const { eventId } = ctx.params;
+    ctx.body = await eventService.findById(eventId);
 }

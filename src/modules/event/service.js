@@ -11,7 +11,11 @@ module.exports = {
 };
 
 async function findAll() {
-    return eventRepository.findAll();
+    const events = await eventRepository.findAll();
+    const promises = [];
+    events.forEach(event => promises.push(setLocationToEvent(event)));
+    await Promise.all(promises);
+    return events;
 }
 
 async function createPrivate(event, account) {
@@ -33,15 +37,16 @@ async function createPrivate(event, account) {
         updated_by_account_id: account.id,
     };
 
-    return eventRepository.create(newEvent);
+    return setLocationToEvent(await eventRepository.create(newEvent));
 }
 
 async function update(eventId, accountId, fieldsForUpdate) {
     fieldsForUpdate.updated_by_account_id = accountId;
-    return eventRepository.update(
+    const event = await eventRepository.update(
         { _id: eventId },
         { $set: fieldsForUpdate },
     );
+    return setLocationToEvent(event);
 }
 
 async function remove(eventId) {
@@ -49,6 +54,12 @@ async function remove(eventId) {
 }
 
 async function findById(eventId) {
-    return eventRepository.findOne({ id: eventId });
+    const event = await eventRepository.findOne({ _id: eventId });
+    return setLocationToEvent(event);
+}
+
+async function setLocationToEvent(event) {
+    event.location = await locationService.findById(event.location_id);
+    return event;
 }
 

@@ -35,6 +35,6 @@ async function remove(locationId) {
 }
 
 async function findById(locationId) {
-    return locationRepository.findOne({ id: locationId });
+    return locationRepository.findOne({ _id: locationId });
 }
 
