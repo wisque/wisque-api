@@ -7,8 +7,7 @@ const { validateUpdate } = require('src/modules/event/access-request/validator')
 const router = new Router();
 router.get('/', controller.getAll);
 router.post('/', controller.create);
-router.put('/:accessRequestId/approve', validateUpdate, controller.approve);
-router.put('/:accessRequestId/decline', validateUpdate, controller.decline);
+router.put('/:accessRequestId/', validateUpdate, controller.update);
 
 router.param('accessRequestId', buildParamMiddleware(accessRequestRepository.findById, 'accessRequest'));
 

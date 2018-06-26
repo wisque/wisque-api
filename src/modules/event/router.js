@@ -4,6 +4,7 @@ const controller = require('src/modules/event/controller');
 const eventRepository = require('src/modules/event/model').repository;
 const { validateCreate, validateUpdate } = require('src/modules/event/validator');
 const accessRequestRouter = require('src/modules/event/access-request/router');
+const inviteRouter = require('src/modules/event/invite/router');
 
 const router = new Router();
 
@@ -13,6 +14,7 @@ router.put('/:eventId', validateUpdate, controller.update);
 router.delete('/:eventId', controller.remove);
 router.get('/:eventId', controller.findById);
 router.use('/:eventId/access-requests', accessRequestRouter);
+router.use('/:eventId/invites', inviteRouter);
 
 router.param('eventId', buildParamMiddleware(eventRepository.findById, 'event'));
 

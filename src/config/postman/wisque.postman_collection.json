@@ -82,18 +82,25 @@
 							"response": []
 						},
 						{
-							"name": "Approve access requests",
+							"name": "Approve access request",
 							"request": {
 								"method": "PUT",
 								"header": [
 									{
 										"key": "x-access-token",
 										"value": "{{access.token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
 									}
 								],
-								"body": {},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"status\": \"approved\"\n}"
+								},
 								"url": {
-									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests/{{last.created.access.request.id}}/approve",
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests/{{last.created.access.request.id}}",
 									"host": [
 										"{{api.gateway}}"
 									],
@@ -102,8 +109,7 @@
 										"events",
 										"{{last.created.event.id}}",
 										"access-requests",
-										"{{last.created.access.request.id}}",
-										"approve"
+										"{{last.created.access.request.id}}"
 									]
 								}
 							},
@@ -117,11 +123,18 @@
 									{
 										"key": "x-access-token",
 										"value": "{{access.token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
 									}
 								],
-								"body": {},
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"status\": \"declined\"\n}"
+								},
 								"url": {
-									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests/{{last.created.access.request.id}}/decline",
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests/{{last.created.access.request.id}}",
 									"host": [
 										"{{api.gateway}}"
 									],
@@ -130,8 +143,222 @@
 										"events",
 										"{{last.created.event.id}}",
 										"access-requests",
-										"{{last.created.access.request.id}}",
-										"decline"
+										"{{last.created.access.request.id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel access request",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"status\": \"cancelled\"\n}"
+								},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/access-requests/{{last.created.access.request.id}}",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"{{last.created.event.id}}",
+										"access-requests",
+										"{{last.created.access.request.id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Invites",
+					"description": "",
+					"item": [
+						{
+							"name": "Create invite",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dfab4f5b-f3c3-4d29-b04f-ab7022956ff4",
+										"type": "text/javascript",
+										"exec": [
+											"var data = JSON.parse(responseBody);",
+											"postman.setEnvironmentVariable(\"last.created.invite.id\", data.id);"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"invited_account_id\": \"acct_K06oiVI6AtDeQX7f\"\n}"
+								},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/invites",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"{{last.created.event.id}}",
+										"invites"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get invites by event id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									}
+								],
+								"body": {},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/invites",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"{{last.created.event.id}}",
+										"invites"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Approve invite",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"status\": \"approved\"\n}"
+								},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/invites/{{last.created.invite.id}}",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"{{last.created.event.id}}",
+										"invites",
+										"{{last.created.invite.id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Decline invite",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"status\": \"declined\"\n}"
+								},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/invites/{{last.created.invite.id}}",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"{{last.created.event.id}}",
+										"invites",
+										"{{last.created.invite.id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancel invite",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "x-access-token",
+										"value": "{{access.token}}"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"status\": \"cancelled\"\n}"
+								},
+								"url": {
+									"raw": "{{api.gateway}}/v1/events/{{last.created.event.id}}/invites/{{last.created.invite.id}}",
+									"host": [
+										"{{api.gateway}}"
+									],
+									"path": [
+										"v1",
+										"events",
+										"{{last.created.event.id}}",
+										"invites",
+										"{{last.created.invite.id}}"
 									]
 								}
 							},

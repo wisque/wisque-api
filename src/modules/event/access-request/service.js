@@ -6,6 +6,7 @@ module.exports = {
     create,
     approve,
     decline,
+    cancel,
 };
 
 async function create(eventId, accountId) {
@@ -41,6 +42,27 @@ async function approve(accessRequestId, updatedByAccountId, event) {
 
 async function decline(accessRequestId, updatedByAccountId) {
     return updateStatus(accessRequestId, updatedByAccountId, accessRequestStatuses.declined);
+}
+
+async function cancel(accessRequestId, updatedByAccountId, event) {
+    const updatedAccessRequest = await updateStatus(
+        accessRequestId,
+        updatedByAccountId,
+        accessRequestStatuses.cancelled,
+    );
+
+    if (updatedAccessRequest.status === accessRequestStatuses.cancelled &&
+        event.members.includes(updatedAccessRequest.created_by_account_id)) {
+        event.members.pop(updatedAccessRequest.created_by_account_id);
+
+        const fieldsForUpdate = {
+            members: event.members,
+        };
+
+        await eventService.update(event.id, updatedByAccountId, fieldsForUpdate);
+    }
+
+    return updatedAccessRequest;
 }
 
 async function updateStatus(accessRequestId, updatedByAccountId, status) {
