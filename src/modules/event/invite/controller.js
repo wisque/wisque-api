@@ -13,27 +13,46 @@ async function getAll(ctx) {
 }
 
 async function create(ctx) {
-    const { event } = ctx.state;
-    const invite = ctx.request.body;
-    ctx.body = await service.create(invite, event);
+    const {
+        event: {
+            id: eventId,
+            created_by_account_id: createdByAccountId,
+        },
+    } = ctx.state;
+
+    const {
+        invited_account_id: invitedAccountId,
+    } = ctx.request.body;
+
+    ctx.body = await service.create({ invitedAccountId, createdByAccountId, eventId });
 }
 
 async function update(ctx) {
-    const { invite, event } = ctx.state;
-    const updatedByAccount = ctx.state.user;
+    const {
+        invite: {
+            id: inviteId,
+        },
+        event: {
+            id: eventId,
+        },
+    } = ctx.state;
+
+    const {
+        id: accountId,
+    } = ctx.state.user;
 
     switch (ctx.request.body.status) {
         case inviteStatuses.approved:
-            ctx.body = await service.approve(invite.id, updatedByAccount.id, event);
+            ctx.body = await service.approve({ inviteId, approvedByAccountId: accountId, eventId });
             break;
         case inviteStatuses.declined:
-            ctx.body = await service.decline(invite.id, updatedByAccount.id);
+            ctx.body = await service.decline({ inviteId, declinedByAccountId: accountId });
             break;
         case inviteStatuses.cancelled:
-            ctx.body = await service.cancel(invite.id, updatedByAccount.id, event);
+            ctx.body = await service.cancel({ inviteId, cancelledByAccountId: accountId, eventId });
             break;
         default:
-            break;
+            throw new Error('Unknown status for invite');
     }
 }
 

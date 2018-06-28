@@ -1,4 +1,5 @@
 const mongo = require('mongoose');
+const accessRequestStatuses = require('./constants');
 
 const accessRequest = {
     event_id: {
@@ -8,6 +9,7 @@ const accessRequest = {
     },
     status: {
         type: String,
+        enum: Object.values(accessRequestStatuses),
         required: true,
     },
     created_by_account_id: {

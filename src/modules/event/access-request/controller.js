@@ -13,27 +13,45 @@ async function getAll(ctx) {
 }
 
 async function create(ctx) {
-    const { event } = ctx.state;
-    const createdByAccount = ctx.state.user;
-    ctx.body = await service.create(event.id, createdByAccount.id);
+    const {
+        event: {
+            id: eventId,
+        },
+    } = ctx.state;
+
+    const {
+        id: accountId,
+    } = ctx.state.user;
+
+    ctx.body = await service.create({ eventId, createdByAccountId: accountId });
 }
 
 async function update(ctx) {
-    const { accessRequest, event } = ctx.state;
-    const updatedByAccount = ctx.state.user;
+    const {
+        accessRequest: {
+            id: accessRequestId,
+        },
+        event: {
+            id: eventId,
+        },
+    } = ctx.state;
+
+    const {
+        id: accountId,
+    } = ctx.state.user;
 
     switch (ctx.request.body.status) {
         case accessRequestStatuses.approved:
-            ctx.body = await service.approve(accessRequest.id, updatedByAccount.id, event);
+            ctx.body = await service.approve({ accessRequestId, approvedByAccountId: accountId, eventId });
             break;
         case accessRequestStatuses.declined:
-            ctx.body = await service.decline(accessRequest.id, updatedByAccount.id);
+            ctx.body = await service.decline({ accessRequestId, declinedByAccountId: accountId });
             break;
         case accessRequestStatuses.cancelled:
-            ctx.body = await service.cancel(accessRequest.id, updatedByAccount.id, event);
+            ctx.body = await service.cancel({ accessRequestId, cancelledByAccountId: accountId, eventId });
             break;
         default:
-            break;
+            throw new Error('Unknown status for access request');
     }
 }
 

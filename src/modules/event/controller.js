@@ -21,8 +21,10 @@ async function createPrivate(ctx) {
 async function update(ctx) {
     const { eventId } = ctx.params;
     const fieldsForUpdate = ctx.request.body;
-    const accountId = ctx.state.user.id;
-    ctx.body = await eventService.update(eventId, accountId, fieldsForUpdate);
+
+    fieldsForUpdate.updated_by_account_id = ctx.state.user.id;
+
+    ctx.body = await eventService.update(eventId, fieldsForUpdate);
 }
 
 async function remove(ctx) {

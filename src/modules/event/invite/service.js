@@ -9,67 +9,62 @@ module.exports = {
     cancel,
 };
 
-async function create(invite, event) {
+async function create({ invitedAccountId, createdByAccountId, eventId }) {
     const newInvite = {
-        event_id: event.id ? event.id : invite.event_id,
+        event_id: eventId,
         status: inviteStatuses.pending,
-        invited_account_id: invite.invited_account_id,
-        updated_by_account_id: event.created_by_account_id,
+        invited_account_id: invitedAccountId,
+        created_by_account_id: createdByAccountId,
+        updated_by_account_id: createdByAccountId,
     };
+
     return inviteRepository.create(newInvite);
 }
 
-async function approve(inviteId, updatedByAccountId, event) {
-    const updatedInvite = await updateStatus(
+async function approve({ inviteId, approvedByAccountId, eventId }) {
+    const updatedInvite = await updateInviteStatus(
         inviteId,
-        updatedByAccountId,
+        approvedByAccountId,
         inviteStatuses.approved,
     );
 
-    if (updatedInvite.status === inviteStatuses.approved &&
-        !event.members.includes(updatedInvite.invited_account_id)) {
-        event.members.push(updatedInvite.invited_account_id);
-
-        const fieldsForUpdate = {
-            members: event.members,
-        };
-
-        await eventService.update(event.id, updatedByAccountId, fieldsForUpdate);
-    }
+    await eventService.update(eventId, {
+        $push: {
+            members: [updatedInvite.invited_account_id],
+        },
+        updated_by_account_id: approvedByAccountId,
+    });
 
     return updatedInvite;
 }
 
-async function decline(inviteId, updatedByAccountId) {
-    return updateStatus(inviteId, updatedByAccountId, inviteStatuses.declined);
+async function decline({ inviteId, declinedByAccountId }) {
+    return updateInviteStatus(inviteId, declinedByAccountId, inviteStatuses.declined);
 }
 
-async function cancel(inviteId, updatedByAccountId, event) {
-    const updatedInvite = await updateStatus(
+async function cancel({ inviteId, cancelledByAccountId, eventId }) {
+    const updatedInvite = await updateInviteStatus(
         inviteId,
-        updatedByAccountId,
+        cancelledByAccountId,
         inviteStatuses.cancelled,
     );
 
-    if (updatedInvite.status === inviteStatuses.cancelled &&
-        event.members.includes(updatedInvite.invited_account_id)) {
-        event.members.pop(updatedInvite.invited_account_id);
-
-        const fieldsForUpdate = {
-            members: event.members,
-        };
-
-        await eventService.update(event.id, updatedByAccountId, fieldsForUpdate);
-    }
+    await eventService.update(eventId, {
+        $pull: {
+            members: [updatedInvite.invited_account_id],
+        },
+        updated_by_account_id: cancelledByAccountId,
+    });
 
     return updatedInvite;
 }
 
-async function updateStatus(inviteId, updatedByAccountId, status) {
+async function updateInviteStatus(inviteId, updatedByAccountId, status) {
     const fieldsForUpdate = {
-        updatedByAccountId,
+        updated_by_account_id: updatedByAccountId,
         status,
     };
+
     return inviteRepository.update(
         { _id: inviteId },
         { $set: fieldsForUpdate },
