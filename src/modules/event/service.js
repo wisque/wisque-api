@@ -36,11 +36,14 @@ async function createPrivate(event, account) {
     return eventRepository.create(newEvent);
 }
 
-async function update(eventId, accountId, fieldsForUpdate) {
-    fieldsForUpdate.updated_by_account_id = accountId;
+async function update(eventId, fieldsForUpdate) {
+    if (!fieldsForUpdate.updated_by_account_id) {
+        throw new Error('You must specify updated_by_account_id for each update');
+    }
+
     return eventRepository.update(
         { _id: eventId },
-        { $set: fieldsForUpdate },
+        fieldsForUpdate,
     );
 }
 
