@@ -5,6 +5,7 @@ const bodyParser = require('koa-bodyparser');
 const passport = require('src/lib/passport');
 const logger = require('src/lib/logger');
 const config = require('src/config/env');
+const { formatRequest } = require('src/utils/api.formatter');
 
 const routes = require('./routes');
 
@@ -35,6 +36,7 @@ module.exports = function mw(app) {
         app.use(morgan(format, { stream: logger.stream }));
     }
     app.use(bodyParser());
+    app.use(formatRequest);
     app.use(routes);
 };
 

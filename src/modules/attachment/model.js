@@ -1,7 +1,7 @@
 const mongo = require('src/db');
 
 const attachment = {
-    media_type: {
+    mediaType: {
         type: String,
         required: [true, 'Attachment should have media type'],
     },
@@ -13,7 +13,7 @@ const attachment = {
         type: String,
         required: [true, 'Attachment should have name'],
     },
-    original_name: {
+    originalName: {
         type: String,
         required: [true, 'Attachment should have original name'],
     },
@@ -27,11 +27,11 @@ const attachment = {
         max: [4 * 1024 * 1024, 'Attachment size cannot be more than 4 MB'],
         default: 0,
     },
-    created_by_account_id: {
+    createdByAccountId: {
         type: String,
         ref: 'Account',
     },
-    updated_by_account_id: {
+    updatedByAccountId: {
         type: String,
         ref: 'Account',
     },
@@ -40,8 +40,5 @@ const attachment = {
 module.exports = mongo.model('Attachment', new mongo.Schema(attachment, {
     paranoid: true,
     idPrefix: 'atch',
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
+    timestamps: true,
 }));

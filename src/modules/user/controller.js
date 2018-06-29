@@ -5,5 +5,5 @@ module.exports = {
 };
 
 async function getCurrent(ctx) {
-    ctx.body = await userService.getCurrent(ctx.state.user.id);
+    ctx.json = await userService.getCurrent(ctx.state.user.id);
 }

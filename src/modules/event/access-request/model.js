@@ -2,7 +2,7 @@ const mongo = require('mongoose');
 const accessRequestStatuses = require('./constants');
 
 const accessRequest = {
-    event_id: {
+    eventId: {
         type: String,
         ref: 'Event',
         required: [true, 'Access request should have reference to event'],
@@ -12,12 +12,12 @@ const accessRequest = {
         enum: Object.values(accessRequestStatuses),
         required: true,
     },
-    created_by_account_id: {
+    createdByAccountId: {
         type: String,
         ref: 'Account',
         required: [true, 'Access request should have created by field'],
     },
-    updated_by_account_id: {
+    updatedByAccountId: {
         type: String,
         ref: 'Account',
         required: [true, 'Access request should have updated by field'],
@@ -27,8 +27,5 @@ const accessRequest = {
 module.exports = mongo.model('AccessRequest', new mongo.Schema(accessRequest, {
     paranoid: true,
     idPrefix: 'areq',
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
+    timestamps: true,
 }));

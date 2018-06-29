@@ -18,8 +18,9 @@ async function create(location, account) {
         address: location.address,
         lat: location.lat,
         lng: location.lng,
-        account_id: account.id,
+        accountId: account.id,
     };
+    
     return locationRepository.create(newLocation);
 }
 

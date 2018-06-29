@@ -21,7 +21,7 @@ const location = {
         max: [180, 'Longitude can not be more than 180 degree'],
         default: 360,
     },
-    account_id: {
+    accountId: {
         type: String,
         ref: 'Account',
         required: [true, 'Location should have account field'],
@@ -31,8 +31,5 @@ const location = {
 module.exports = mongo.model('Location', new mongo.Schema(location, {
     paranoid: true,
     idPrefix: 'lctn',
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
+    timestamps: true,
 }));

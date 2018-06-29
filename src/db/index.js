@@ -15,7 +15,7 @@ class Mongo {
 
         this.mongo.plugin(mongooseParanoidPlugin, { field: 'deleted_at' });
         this.mongo.plugin(shortIdPlugin);
-        this.mongo.plugin(renameIdPlugin);
+        this.mongo.plugin(toJSONPlugin);
 
         this.mongo.connect(mongodb.buildConnectionUrl());
 
@@ -52,7 +52,7 @@ function shortIdPlugin(schema) {
     });
 }
 
-function renameIdPlugin(schema) {
+function toJSONPlugin(schema) {
     return schema.method('toJSON', function toJSON() {
         const obj = this.toObject();
 

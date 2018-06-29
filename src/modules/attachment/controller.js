@@ -9,11 +9,11 @@ module.exports = {
 
 async function create(ctx) {
     const account = ctx.state.user;
-    ctx.body = await service.create(Object.values(ctx.request.files), account.id);
+    ctx.json = await service.create(Object.values(ctx.request.files), account.id);
 }
 
 function findById(ctx) {
-    ctx.body = ctx.state.attachment;
+    ctx.json = ctx.state.attachment;
 }
 
 async function getAttachmentContent(ctx) {

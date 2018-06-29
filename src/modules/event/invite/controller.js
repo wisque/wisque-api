@@ -9,7 +9,7 @@ module.exports = {
 };
 
 async function getAll(ctx) {
-    ctx.body = await inviteRepository.find({ event_id: ctx.state.event.id });
+    ctx.json = await inviteRepository.find({ event_id: ctx.state.event.id });
 }
 
 async function create(ctx) {
@@ -24,7 +24,7 @@ async function create(ctx) {
         invited_account_id: invitedAccountId,
     } = ctx.request.body;
 
-    ctx.body = await service.create({ invitedAccountId, createdByAccountId, eventId });
+    ctx.json = await service.create({ invitedAccountId, createdByAccountId, eventId });
 }
 
 async function update(ctx) {

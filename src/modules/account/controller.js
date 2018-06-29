@@ -5,5 +5,5 @@ module.exports = {
 };
 
 function signin(ctx) {
-    ctx.body = { token: generateToken(ctx.state.user) };
+    ctx.json = { token: generateToken(ctx.state.user) };
 }

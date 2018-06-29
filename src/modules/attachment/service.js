@@ -11,13 +11,13 @@ async function create(files, accountId) {
     for (const file of files) {
         const attachment = {
             path: file.path,
-            media_type: file.type,
-            original_name: file.name,
+            mediaType: file.type,
+            originalName: file.name,
             name: getFilename(file),
             extension: getFileExtension(file),
             size: file.size,
-            created_by_account_id: accountId,
-            updated_by_account_id: accountId,
+            createdByAccountId: accountId,
+            updatedByAccountId: accountId,
         };
 
         attachments.push(attachmentRepository.create(attachment));

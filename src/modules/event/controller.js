@@ -9,29 +9,31 @@ module.exports = {
 };
 
 async function findAll(ctx) {
-    ctx.body = await eventService.findAll();
+    ctx.json = await eventService.findAll();
 }
 
 async function createPrivate(ctx) {
     const event = ctx.request.body;
     const account = ctx.state.user;
-    ctx.body = await eventService.createPrivate(event, account);
+
+    ctx.json = await eventService.createPrivate(event, account);
 }
 
 async function update(ctx) {
     const { eventId } = ctx.params;
     const fieldsForUpdate = ctx.request.body;
 
-    fieldsForUpdate.updated_by_account_id = ctx.state.user.id;
+    fieldsForUpdate.updatedByAccountId = ctx.state.user.id;
 
-    ctx.body = await eventService.update(eventId, fieldsForUpdate);
+    ctx.json = await eventService.update(eventId, fieldsForUpdate);
 }
 
 async function remove(ctx) {
     const eventId = ctx.params.id;
-    ctx.body = await eventService.remove(eventId);
+
+    ctx.json = await eventService.remove(eventId);
 }
 
 function findById(ctx) {
-    ctx.body = ctx.state.event;
+    ctx.json = ctx.state.event;
 }

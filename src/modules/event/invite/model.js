@@ -2,7 +2,7 @@ const mongo = require('mongoose');
 const inviteStatuses = require('./constants');
 
 const invite = {
-    event_id: {
+    eventId: {
         type: String,
         ref: 'Event',
         required: [true, 'Invite should have reference to event'],
@@ -12,17 +12,17 @@ const invite = {
         enum: Object.values(inviteStatuses),
         required: true,
     },
-    invited_account_id: {
+    invitedAccountId: {
         type: String,
         ref: 'Account',
         required: [true, 'Invite should have invited account field'],
     },
-    created_by_account_id: {
+    createdByAccountId: {
         type: String,
         ref: 'Account',
         required: [true, 'Invite should have invited account field'],
     },
-    updated_by_account_id: {
+    updatedByAccountId: {
         type: String,
         ref: 'Account',
         required: [true, 'Invite should have updated by field'],
@@ -32,8 +32,5 @@ const invite = {
 module.exports = mongo.model('Invite', new mongo.Schema(invite, {
     paranoid: true,
     idPrefix: 'invt',
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
+    timestamps: true,
 }));

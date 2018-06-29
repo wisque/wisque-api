@@ -16,20 +16,20 @@ const event = {
         type: String,
         required: [true, 'Event should have category'],
     },
-    starting_at: {
+    startingAt: {
         type: Number,
         default: 0,
     },
-    location_id: {
+    locationId: {
         type: String,
         ref: 'Location',
         required: [true, 'Event should have location'],
     },
-    creator_attachments: [{
+    creatorAttachments: [{
         type: String,
         ref: 'Attachment',
     }],
-    member_attachments: [{
+    memberAttachments: [{
         type: String,
         ref: 'Attachment',
     }],
@@ -37,11 +37,11 @@ const event = {
         type: String,
         ref: 'Account',
     }],
-    created_by_account_id: {
+    createdByAccountId: {
         type: String,
         ref: 'Account',
     },
-    updated_by_account_id: {
+    updatedByAccountId: {
         type: String,
         ref: 'Account',
     },
@@ -50,8 +50,5 @@ const event = {
 module.exports = mongo.model('Event', new mongo.Schema(event, {
     paranoid: true,
     idPrefix: 'evnt',
-    timestamps: {
-        createdAt: 'created_at',
-        updatedAt: 'updated_at',
-    },
+    timestamps: true,
 }));

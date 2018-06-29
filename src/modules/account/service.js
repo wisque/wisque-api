@@ -11,7 +11,7 @@ module.exports = {
 };
 
 async function verifyVK(accessToken, refreshToken, profile, cb) {
-    const accountQuery = { social_network_id: profile.id, network: 'vk' };
+    const accountQuery = { socialNetworkId: profile.id, network: 'vk' };
     let account = await accountRepository.findOne(accountQuery);
 
     const profileDto = mapVKFields(profile._json);
@@ -27,12 +27,12 @@ async function verifyVK(accessToken, refreshToken, profile, cb) {
 
 function mapVKFields(profile) {
     return {
-        social_network_id: profile.id,
+        socialNetworkId: profile.id,
         network: 'vk',
         country: vkConstants.countries[profile.country],
         gender: vkConstants.genders[profile.sex] || 'unknown',
-        first_name: profile.first_name,
-        last_name: profile.last_name,
+        firstName: profile.first_name,
+        lastName: profile.last_name,
         photo: profile.photo_400_orig,
         email: profile.email,
         birthday: (profile.bdate || '').replace(/\./g, '/'),
@@ -40,7 +40,7 @@ function mapVKFields(profile) {
 }
 
 async function verifyFB(accessToken, refreshToken, profile, cb) {
-    const accountQuery = { social_network_id: profile.id, network: 'fb' };
+    const accountQuery = { socialNetworkId: profile.id, network: 'fb' };
     let account = await accountRepository.findOne(accountQuery);
 
     const profileDto = mapFBFields(profile._json);
@@ -56,12 +56,12 @@ async function verifyFB(accessToken, refreshToken, profile, cb) {
 
 function mapFBFields(profile) {
     return {
-        social_network_id: profile.id,
+        socialNetworkId: profile.id,
         network: 'fb',
         country: profile.location.location.country,
         gender: profile.gender || 'unknown',
-        first_name: profile.first_name,
-        last_name: profile.last_name,
+        firstName: profile.first_name,
+        lastName: profile.last_name,
         photo: profile.picture.data.url,
         email: profile.email,
         birthday: profile.birthday,
