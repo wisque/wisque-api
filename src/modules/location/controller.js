@@ -13,15 +13,18 @@ async function findAll(ctx) {
 }
 
 async function create(ctx) {
-    const location = ctx.request.body;
-    const account = ctx.state.user;
-    ctx.json = await locationService.create(location, account);
+    const { id: createdByAccountId } = ctx.state.user;
+    const locationDto = { ...ctx.request.body, createdByAccountId };
+
+    ctx.json = await locationService.create(locationDto);
 }
 
 async function update(ctx) {
     const { locationId } = ctx.params;
-    const fieldsForUpdate = ctx.request.body;
-    ctx.json = await locationService.update(locationId, fieldsForUpdate);
+    const { id: updatedByAccountId } = ctx.state.user;
+    const locationDto = { ...ctx.request.body, updatedByAccountId };
+
+    ctx.json = await locationService.update(locationId, locationDto);
 }
 
 async function remove(ctx) {

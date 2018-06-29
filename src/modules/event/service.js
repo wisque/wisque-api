@@ -14,11 +14,15 @@ async function findAll() {
     return eventRepository.findAll();
 }
 
-async function create(event, account) {
+async function create(event) {
     let { locationId } = event;
-
+    const { createdByAccountId } = event;
+    
     if (event.location) {
-        const location = await locationService.create(event.location, account);
+        const location = await locationService.create({
+            ...event.location,
+            createdByAccountId,
+        });
 
         locationId = location.id;
     }
@@ -30,23 +34,15 @@ async function create(event, account) {
         category: event.category ? event.category : eventCategories.flatParty,
         startingAt: event.startingAt,
         creatorAttachments: event.creatorAttachments,
-        createdByAccountId: account.id,
-        updatedByAccountId: account.id,
+        createdByAccountId,
         locationId,
     };
 
     return eventRepository.create(eventDto);
 }
 
-async function update(eventId, fieldsForUpdate) {
-    if (!fieldsForUpdate.updatedByAccountId) {
-        throw new Error('You must specify updatedByAccountId for each update');
-    }
-
-    return eventRepository.update(
-        { _id: eventId },
-        fieldsForUpdate,
-    );
+async function update(eventId, eventDto) {
+    return eventRepository.update({ _id: eventId }, eventDto);
 }
 
 async function remove(eventId) {

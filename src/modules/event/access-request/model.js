@@ -20,7 +20,6 @@ const accessRequest = {
     updatedByAccountId: {
         type: String,
         ref: 'Account',
-        required: [true, 'Access request should have updated by field'],
     },
 };
 

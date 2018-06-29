@@ -10,62 +10,50 @@ module.exports = {
 };
 
 async function create({ eventId, createdByAccountId }) {
-    const accessRequest = {
-        event_id: eventId,
+    const accessRequestDto = {
+        eventId,
+        createdByAccountId,
         status: accessRequestStatuses.pending,
-        created_by_account_id: createdByAccountId,
-        updated_by_account_id: createdByAccountId,
     };
 
-    return accessRequestRepository.create(accessRequest);
+    return accessRequestRepository.create(accessRequestDto);
 }
 
 async function approve({ accessRequestId, approvedByAccountId, eventId }) {
-    const updatedAccessRequest = await updateStatus(
-        accessRequestId,
-        approvedByAccountId,
-        accessRequestStatuses.approved,
-    );
+    const updatedAccessRequest = await accessRequestRepository.update({ _id: accessRequestId }, {
+        updatedByAccountId: approvedByAccountId,
+        status: accessRequestStatuses.approved,
+    });
 
     await eventService.update(eventId, {
         $push: {
-            members: [updatedAccessRequest.created_by_account_id],
+            members: [updatedAccessRequest.createdByAccountId],
         },
-        updated_by_account_id: approvedByAccountId,
+        updatedByAccountId: approvedByAccountId,
     });
 
     return updatedAccessRequest;
 }
 
 async function decline({ accessRequestId, declinedByAccountId }) {
-    return updateStatus(accessRequestId, declinedByAccountId, accessRequestStatuses.declined);
+    return accessRequestRepository.update({ _id: accessRequestId }, {
+        updatedByAccountId: declinedByAccountId,
+        status: accessRequestStatuses.declined,
+    });
 }
 
 async function cancel({ accessRequestId, cancelledByAccountId, eventId }) {
-    const updatedAccessRequest = await updateStatus(
-        accessRequestId,
-        cancelledByAccountId,
-        accessRequestStatuses.cancelled,
-    );
+    const updatedAccessRequest = await accessRequestRepository.update({ _id: accessRequestId }, {
+        updatedByAccountId: cancelledByAccountId,
+        status: accessRequestStatuses.cancelled,
+    });
 
     await eventService.update(eventId, {
         $pull: {
-            members: [updatedAccessRequest.created_by_account_id],
+            members: [updatedAccessRequest.createdByAccountId],
         },
-        updated_by_account_id: cancelledByAccountId,
+        updatedByAccountId: cancelledByAccountId,
     });
 
     return updatedAccessRequest;
 }
-
-async function updateStatus(accessRequestId, updatedByAccountId, status) {
-    const fieldsForUpdate = {
-        updated_by_account_id: updatedByAccountId,
-        status,
-    };
-    return accessRequestRepository.update(
-        { _id: accessRequestId },
-        fieldsForUpdate,
-    );
-}
-

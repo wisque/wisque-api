@@ -7,10 +7,11 @@ module.exports = {
 async function validateUpdate(ctx) {
     const { event, accessRequest } = ctx.state;
     const account = ctx.state.user;
-    if (accessRequest.created_by_account_id !== account.id &&
-        event.created_by_account_id !== account.id) {
+    
+    if (accessRequest.createdByAccountId !== account.id &&
+        event.createdByAccountId !== account.id) {
         this.permissionError(
-            'updated_by_account_id',
+            'updatedByAccountId',
             `Update by account ${account.id} prohibited for access request ${accessRequest.id}`,
         );
     }

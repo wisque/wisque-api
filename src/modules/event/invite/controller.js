@@ -9,37 +9,29 @@ module.exports = {
 };
 
 async function getAll(ctx) {
-    ctx.json = await inviteRepository.find({ event_id: ctx.state.event.id });
+    ctx.json = await inviteRepository.find({ eventId: ctx.state.event.id });
 }
 
 async function create(ctx) {
     const {
         event: {
             id: eventId,
-            created_by_account_id: createdByAccountId,
+            createdByAccountId,
         },
     } = ctx.state;
 
-    const {
-        invited_account_id: invitedAccountId,
-    } = ctx.request.body;
+    const inviteDto = { ...ctx.request.body, eventId, createdByAccountId };
 
-    ctx.json = await service.create({ invitedAccountId, createdByAccountId, eventId });
+    ctx.json = await service.create(inviteDto);
 }
 
 async function update(ctx) {
     const {
-        invite: {
-            id: inviteId,
-        },
-        event: {
-            id: eventId,
-        },
+        invite: { id: inviteId },
+        event: { id: eventId },
     } = ctx.state;
 
-    const {
-        id: accountId,
-    } = ctx.state.user;
+    const { id: accountId } = ctx.state.user;
 
     switch (ctx.request.body.status) {
         case inviteStatuses.approved:

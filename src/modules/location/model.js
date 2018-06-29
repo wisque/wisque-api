@@ -21,10 +21,14 @@ const location = {
         max: [180, 'Longitude can not be more than 180 degree'],
         default: 360,
     },
-    accountId: {
+    createdByAccountId: {
         type: String,
         ref: 'Account',
         required: [true, 'Location should have account field'],
+    },
+    updatedByAccountId: {
+        type: String,
+        ref: 'Account',
     },
 };
 

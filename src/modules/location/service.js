@@ -12,23 +12,20 @@ async function findAll() {
     return locationRepository.findAll();
 }
 
-async function create(location, account) {
-    const newLocation = {
+async function create(location) {
+    const locationDto = {
         name: location.name ? location.name : location.address,
         address: location.address,
         lat: location.lat,
         lng: location.lng,
-        accountId: account.id,
+        createdByAccountId: location.createdByAccountId,
     };
-    
-    return locationRepository.create(newLocation);
+
+    return locationRepository.create(locationDto);
 }
 
-async function update(locationId, fieldsForUpdate) {
-    return locationRepository.update(
-        { _id: locationId },
-        { $set: fieldsForUpdate },
-    );
+async function update(locationId, locationDto) {
+    return locationRepository.update({ _id: locationId }, locationDto);
 }
 
 async function remove(locationId) {

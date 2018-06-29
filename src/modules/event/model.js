@@ -40,6 +40,7 @@ const event = {
     createdByAccountId: {
         type: String,
         ref: 'Account',
+        required: [true, 'Event should have createdByAccountId field'],
     },
     updatedByAccountId: {
         type: String,

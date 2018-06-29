@@ -13,19 +13,18 @@ async function findAll(ctx) {
 }
 
 async function create(ctx) {
-    const event = ctx.request.body;
-    const account = ctx.state.user;
+    const { id: createdByAccountId } = ctx.state.user;
+    const eventDto = { ...ctx.request.body, createdByAccountId };
 
-    ctx.json = await eventService.create(event, account);
+    ctx.json = await eventService.create(eventDto);
 }
 
 async function update(ctx) {
     const { eventId } = ctx.params;
-    const fieldsForUpdate = ctx.request.body;
+    const { id: updatedByAccountId } = ctx.state.user;
+    const eventDto = { ...ctx.request.body, updatedByAccountId };
 
-    fieldsForUpdate.updatedByAccountId = ctx.state.user.id;
-
-    ctx.json = await eventService.update(eventId, fieldsForUpdate);
+    ctx.json = await eventService.update(eventId, eventDto);
 }
 
 async function remove(ctx) {

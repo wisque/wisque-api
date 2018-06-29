@@ -7,10 +7,10 @@ module.exports = {
 async function validateUpdate(ctx) {
     const { event, invite } = ctx.state;
     const account = ctx.state.user;
-    if (invite.invited_account_id !== account.id &&
-        event.created_by_account_id !== account.id) {
+    if (invite.invitedAccountId !== account.id &&
+        event.createdByAccountId !== account.id) {
         this.permissionError(
-            'updated_by_account_id',
+            'updatedByAccountId',
             `Update by account ${account.id} prohibited for invite ${invite.id}`,
         );
     }
