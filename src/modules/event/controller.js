@@ -2,7 +2,7 @@ const eventService = require('src/modules/event/service');
 
 module.exports = {
     findAll,
-    createPrivate,
+    create,
     update,
     remove,
     findById,
@@ -12,11 +12,11 @@ async function findAll(ctx) {
     ctx.json = await eventService.findAll();
 }
 
-async function createPrivate(ctx) {
+async function create(ctx) {
     const event = ctx.request.body;
     const account = ctx.state.user;
 
-    ctx.json = await eventService.createPrivate(event, account);
+    ctx.json = await eventService.create(event, account);
 }
 
 async function update(ctx) {

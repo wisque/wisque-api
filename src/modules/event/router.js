@@ -10,7 +10,7 @@ const attachmentRouter = require('src/modules/event/attachment/router');
 const router = new Router();
 
 router.get('/', controller.findAll);
-router.post('/private', validateCreate, controller.createPrivate);
+router.post('/', validateCreate, controller.create);
 router.put('/:eventId', validateUpdate, controller.update);
 router.delete('/:eventId', controller.remove);
 router.get('/:eventId', controller.findById);

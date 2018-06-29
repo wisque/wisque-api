@@ -4,7 +4,7 @@ const { eventTypes, eventCategories } = require('./constants');
 
 module.exports = {
     findAll,
-    createPrivate,
+    create,
     update,
     remove,
     findById,
@@ -14,19 +14,19 @@ async function findAll() {
     return eventRepository.findAll();
 }
 
-async function createPrivate(event, account) {
+async function create(event, account) {
     let { locationId } = event;
 
     if (event.location) {
         const location = await locationService.create(event.location, account);
-        
+
         locationId = location.id;
     }
 
-    const newEvent = {
+    const eventDto = {
         name: event.name,
         description: event.description,
-        type: eventTypes.private,
+        type: event.type ? event.type : eventTypes.private,
         category: event.category ? event.category : eventCategories.flatParty,
         startingAt: event.startingAt,
         creatorAttachments: event.creatorAttachments,
@@ -35,7 +35,7 @@ async function createPrivate(event, account) {
         locationId,
     };
 
-    return eventRepository.create(newEvent);
+    return eventRepository.create(eventDto);
 }
 
 async function update(eventId, fieldsForUpdate) {
