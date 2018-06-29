@@ -1,4 +1,4 @@
-const service = require('./service');
+const service = require('src/modules/attachment/service');
 const send = require('koa-send');
 
 module.exports = {
@@ -9,6 +9,7 @@ module.exports = {
 
 async function create(ctx) {
     const account = ctx.state.user;
+
     ctx.json = await service.create(Object.values(ctx.request.files), account.id);
 }
 

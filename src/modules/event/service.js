@@ -15,10 +15,12 @@ async function findAll() {
 }
 
 async function createPrivate(event, account) {
+    let { locationId } = event;
+
     if (event.location) {
-        const newLocation = await locationService.create(event.location, account);
-        event.locationId = newLocation.id;
-        delete event.location;
+        const location = await locationService.create(event.location, account);
+        
+        locationId = location.id;
     }
 
     const newEvent = {
@@ -27,10 +29,10 @@ async function createPrivate(event, account) {
         type: eventTypes.private,
         category: event.category ? event.category : eventCategories.flatParty,
         startingAt: event.startingAt,
-        locationId: event.locationId,
         creatorAttachments: event.creatorAttachments,
         createdByAccountId: account.id,
         updatedByAccountId: account.id,
+        locationId,
     };
 
     return eventRepository.create(newEvent);

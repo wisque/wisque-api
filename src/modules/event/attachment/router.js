@@ -1,8 +1,9 @@
 const Router = require('koa-router');
 const { buildParamMiddleware } = require('src/utils/helpers');
-const controller = require('src/modules/attachment/controller');
+const controller = require('src/modules/event/attachment/controller');
 const attachmentRepository = require('src/modules/attachment/model').repository;
-const { validateCreate } = require('src/modules/attachment/validator');
+const { validateCreate } = require('src/modules/event/attachment/validator');
+
 const koaBody = require('koa-body')({
     formidable: {
         uploadDir: 'public/uploads', // upload directory
