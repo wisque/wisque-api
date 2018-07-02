@@ -7,7 +7,7 @@ module.exports = {
 async function validateUpdate(ctx) {
     const { event, accessRequest } = ctx.state;
     const account = ctx.state.user;
-    
+
     if (accessRequest.createdByAccountId !== account.id &&
         event.createdByAccountId !== account.id) {
         this.permissionError(

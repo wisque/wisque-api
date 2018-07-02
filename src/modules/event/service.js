@@ -3,21 +3,21 @@ const locationService = require('src/modules/location/service');
 const { eventTypes, eventCategories } = require('./constants');
 
 module.exports = {
-    findAll,
+    find,
     create,
     update,
     remove,
     findById,
 };
 
-async function findAll() {
-    return eventRepository.findAll();
+async function find(query, options) {
+    return eventRepository.find(query, options);
 }
 
 async function create(event) {
     let { locationId } = event;
     const { createdByAccountId } = event;
-    
+
     if (event.location) {
         const location = await locationService.create({
             ...event.location,

@@ -1,15 +1,15 @@
 const locationRepository = require('src/modules/location/model').repository;
 
 module.exports = {
-    findAll,
+    find,
     create,
     update,
     remove,
     findById,
 };
 
-async function findAll() {
-    return locationRepository.findAll();
+async function find() {
+    return locationRepository.find();
 }
 
 async function create(location) {

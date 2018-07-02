@@ -5,7 +5,6 @@ module.exports = function initialize(Model) {
 
     return {
         find: wrap(find),
-        findAll: wrap(findAll),
         findById: wrap(findById),
         findOne: wrap(findOne),
         create: wrap(create),
@@ -14,12 +13,10 @@ module.exports = function initialize(Model) {
     };
 };
 
-function findAll(Model) {
-    return find(Model, {});
-}
-
-function find(Model, query) {
-    return Model.find(query).then(docs => docs.map(doc => doc.toJSON()));
+function find(Model, query, options = {}) {
+    return Model.find(query)
+        .populate(Model.extend ? Model.extend(options.extend) : '')
+        .then(docs => docs.map(doc => doc.toJSON()));
 }
 
 function create(Model, data) {
@@ -34,10 +31,14 @@ function remove(Model, query) {
     return findOne(Model, query).then(doc => doc && Model.remove(query).then(() => ({ id: doc.id })));
 }
 
-function findById(Model, id) {
-    return Model.findById(id).then(doc => doc && doc.toJSON());
+function findById(Model, id, options = {}) {
+    return Model.findById(id)
+        .populate(Model.extend ? Model.extend(options.extend) : '')
+        .then(doc => doc && doc.toJSON());
 }
 
-function findOne(Model, query) {
-    return Model.findOne(query).then(doc => doc && doc.toJSON());
+function findOne(Model, query, options = {}) {
+    return Model.findOne(query)
+        .populate(Model.extend ? Model.extend(options.extend) : '')
+        .then(doc => doc && doc.toJSON());
 }

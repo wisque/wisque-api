@@ -3,12 +3,12 @@ const accessRequestStatuses = require('./constants');
 const service = require('./service');
 
 module.exports = {
-    getAll,
+    find,
     create,
     update,
 };
 
-async function getAll(ctx) {
+async function find(ctx) {
     ctx.json = await accessRequestRepository.find({ event_id: ctx.state.event.id });
 }
 

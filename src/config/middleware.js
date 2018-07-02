@@ -9,7 +9,6 @@ const { formatRequest } = require('src/utils/api.formatter');
 
 const routes = require('./routes');
 
-
 module.exports = function mw(app) {
     app.use(passport.initialize());
 
@@ -35,6 +34,7 @@ module.exports = function mw(app) {
 
         app.use(morgan(format, { stream: logger.stream }));
     }
+
     app.use(bodyParser());
     app.use(formatRequest);
     app.use(routes);

@@ -1,15 +1,17 @@
 const eventService = require('src/modules/event/service');
 
 module.exports = {
-    findAll,
+    find,
     create,
     update,
     remove,
     findById,
 };
 
-async function findAll(ctx) {
-    ctx.json = await eventService.findAll();
+async function find(ctx) {
+    ctx.json = await eventService.find(null, {
+        extend: ctx.query.extend,
+    });
 }
 
 async function create(ctx) {

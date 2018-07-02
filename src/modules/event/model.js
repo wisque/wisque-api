@@ -1,4 +1,5 @@
 const mongo = require('src/db');
+const extend = require('src/modules/event/query/extend');
 
 const event = {
     name: {
@@ -48,8 +49,12 @@ const event = {
     },
 };
 
-module.exports = mongo.model('Event', new mongo.Schema(event, {
+const Event = mongo.model('Event', new mongo.Schema(event, {
     paranoid: true,
     idPrefix: 'evnt',
     timestamps: true,
 }));
+
+Event.extend = extend;
+
+module.exports = Event;

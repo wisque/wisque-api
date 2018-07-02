@@ -5,7 +5,7 @@ const accessRequestRepository = require('src/modules/event/access-request/model'
 const { validateUpdate } = require('src/modules/event/access-request/validator');
 
 const router = new Router();
-router.get('/', controller.getAll);
+router.get('/', controller.find);
 router.post('/', controller.create);
 router.put('/:accessRequestId/', validateUpdate, controller.update);
 

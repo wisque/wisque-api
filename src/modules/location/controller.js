@@ -1,15 +1,15 @@
 const locationService = require('src/modules/location/service');
 
 module.exports = {
-    findAll,
+    find,
     create,
     update,
     remove,
     findById,
 };
 
-async function findAll(ctx) {
-    ctx.json = await locationService.findAll();
+async function find(ctx) {
+    ctx.json = await locationService.find();
 }
 
 async function create(ctx) {

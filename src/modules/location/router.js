@@ -4,7 +4,7 @@ const controller = require('./controller');
 const locationRepository = require('src/modules/location/model').repository;
 
 const router = new Router();
-router.get('/', controller.findAll);
+router.get('/', controller.find);
 router.get('/:locationId', controller.findById);
 router.post('/', controller.create);
 router.put('/:locationId', controller.update);

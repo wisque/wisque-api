@@ -3,12 +3,12 @@ const inviteStatuses = require('src/modules/event/invite/constants');
 const service = require('./service');
 
 module.exports = {
-    getAll,
+    find,
     create,
     update,
 };
 
-async function getAll(ctx) {
+async function find(ctx) {
     ctx.json = await inviteRepository.find({ eventId: ctx.state.event.id });
 }
 
