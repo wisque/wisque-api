@@ -18,6 +18,7 @@ const jwtStrategyOptions = {
 const facebookTokenStrategyOptions = {
     clientID: config.facebook.clientID,
     clientSecret: config.facebook.clientSecret,
+    accessTokenField: 'accessToken',
     profileFields: [
         'id', 'email', 'birthday', 'gender', 'first_name', 'last_name',
         'location{location}', 'picture.type(large)',
@@ -32,6 +33,7 @@ const facebookWebStrategyOptions = {
 const vkTokenStrategyOptions = {
     clientID: config.vk.clientID,
     clientSecret: config.vk.clientSecret,
+    accessTokenField: 'accessToken',
     profileFields: [
         'uid', 'first_name', 'last_name', 'sex',
         'photo', 'bdate', 'city', 'country',
